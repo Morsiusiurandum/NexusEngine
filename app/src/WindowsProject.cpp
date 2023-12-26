@@ -1,10 +1,8 @@
 #include "Window.h"
 
-wchar_t *convertCharArrayToLPCWSTR(const char *charArray);
-
 int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd) {
 
-    Window wnd(800, 300, convertCharArrayToLPCWSTR("WTF?"));
+    Window wnd(800, 300, CHAR2LPCWSTR("WTF?"));
     
     MSG msg;
     BOOL msgResult;
@@ -14,10 +12,4 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
     }
 
     return msgResult == -1 ? -1 : (int) msg.wParam;
-}
-
-wchar_t *convertCharArrayToLPCWSTR(const char *charArray) {
-    auto *wString = new wchar_t[4096];
-    MultiByteToWideChar(CP_ACP, 0, charArray, -1, wString, 4096);
-    return wString;
 }

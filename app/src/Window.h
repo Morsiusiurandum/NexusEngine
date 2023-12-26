@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "NexusWin.h"
+#include "NexusMacro.h"
 
 
 class Window {

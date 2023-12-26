@@ -15,7 +15,7 @@ Window::WindowClass::WindowClass() noexcept: hInst(GetModuleHandle(nullptr)) {
     wc.hCursor = nullptr;
     wc.hbrBackground = nullptr;
     wc.lpszMenuName = nullptr;
-    wc.lpszClassName = reinterpret_cast<LPCWSTR>(GetName());
+    wc.lpszClassName = CHAR2LPCWSTR(GetName());
     wc.hIconSm = nullptr;
     //register a window
     RegisterClassEx(&wc);
@@ -43,12 +43,11 @@ Window::Window(int width, int height, const WCHAR *name) noexcept {
     window_rect.bottom = height + window_rect.top;
     DWORD window_style = WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU;
     AdjustWindowRect(&window_rect, window_style, FALSE);
-
-
+    
 
     //creat window and get the instance
     hWnd = CreateWindow(
-            reinterpret_cast<LPCWSTR>(WindowClass::GetName()),
+            CHAR2LPCWSTR(WindowClass::GetName()),
             name,
             window_style, CW_USEDEFAULT, CW_USEDEFAULT,
             window_rect.right - window_rect.left, window_rect.bottom - window_rect.top,
