@@ -15,14 +15,14 @@ add_compile_definitions(_UNICODE UNICODE)
 #add_compile_definitions(_TIDY_TIMEOUT)
 
 include_directories(include)
-aux_source_directory(include inc)
+
+aux_source_directory(resources resources)
+aux_source_directory(src src)
+
 add_executable(
         ${PROJECT_NAME}
-        include/Resource.h
-        resources/targetver.h
-        resources/WindowsProject.rc
-        ${inc}
-        src/WindowsProject.cpp)
+        ${resources}
+        ${src})
 
 set_target_properties(${PROJECT_NAME} PROPERTIES WIN32_EXECUTABLE TRUE)
-target_link_options( ${PROJECT_NAME} PRIVATE "/SUBSYSTEM:WINDOWS")
+target_link_options(${PROJECT_NAME} PRIVATE "/SUBSYSTEM:WINDOWS")

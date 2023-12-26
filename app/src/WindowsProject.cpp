@@ -1,30 +1,23 @@
-#include<windows.h>
+#include "Window.h"
 
-const wchar_t pClassName[] = L"D3D11";
+wchar_t *convertCharArrayToLPCWSTR(const char *charArray);
 
-int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
-{
-    //register a window
-    WNDCLASSEX wc = {0};
-    wc.cbSize = sizeof(WNDCLASSEX);
-    wc.style = CS_OWNDC;
-    wc.lpfnWndProc = DefWindowProc;
-    wc.cbClsExtra = 0;
-    wc.cbWndExtra = 0;
-    wc.hInstance = hInstance;
-    wc.hIcon = nullptr;
-    wc.hCursor = nullptr;
-    wc.hbrBackground = nullptr;
-    wc.lpszMenuName = nullptr;
-    wc.lpszClassName = pClassName;
-    wc.hIconSm = nullptr;
-    RegisterClassEx(&wc);
+int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd) {
 
-    //create a window instance
-    DWORD dwStyle = WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU;
-    HWND hWnd = CreateWindowEx(0, pClassName, L"Test Window", dwStyle, 200, 200, 640, 480, nullptr, nullptr, hInstance, nullptr);
+    Window wnd(800, 300, convertCharArrayToLPCWSTR("WTF?"));
+    
+    MSG msg;
+    BOOL msgResult;
+    while ((msgResult = GetMessage(&msg, nullptr, 0, 0)) > 0) {
+        TranslateMessage(&msg);
+        DispatchMessage(&msg);
+    }
 
-    ShowWindow(hWnd, SW_SHOW);
+    return msgResult == -1 ? -1 : (int) msg.wParam;
+}
 
-    return 0;
+wchar_t *convertCharArrayToLPCWSTR(const char *charArray) {
+    auto *wString = new wchar_t[4096];
+    MultiByteToWideChar(CP_ACP, 0, charArray, -1, wString, 4096);
+    return wString;
 }
