@@ -4,51 +4,76 @@
 #pragma once
 
 #include "NexusMacro.h"
+#include "NexusException.h"
 
+class Window
+{
+ public:
+	class Exception : public NexusException
+	{
+	 public:
+		Exception(int line, const char* file, HRESULT hResult) noexcept;
 
-class Window {
-private:
-    class WindowClass {
-    public:
-        static const char *GetName() noexcept;
+		const char* what() const noexcept override;
 
-        static HINSTANCE GetInstance() noexcept;
+		virtual const char* GetType() const noexcept;
 
-        WindowClass(const WindowClass &) = delete;
+		static std::string TranslateErrorCode(HRESULT hResult) noexcept;
 
-        WindowClass &operator=(const WindowClass &) = delete;
+		HRESULT GetErrorCode() const noexcept;
 
-    private:
-        WindowClass() noexcept;
+		std::string GetErrorString() const noexcept;
 
-        ~WindowClass();
+	 private:
+		HRESULT hResult;
+	};
 
-        static constexpr const char *wndClassName = "Nexus Direct3D Engine";
+ private:
+	class WindowClass
+	{
+	 public:
+		static const char* GetName() noexcept;
 
-        static WindowClass wndClass;
+		static HINSTANCE GetInstance() noexcept;
 
-        HINSTANCE hInst;
-    };
+		WindowClass(const WindowClass&) = delete;
 
-public:
-    Window(int width, int height, const WCHAR *name) noexcept;
+		WindowClass& operator=(const WindowClass&) = delete;
 
-    ~Window();
+	 private:
+		WindowClass() noexcept;
 
-    Window(const Window &) = delete;
+		~WindowClass();
 
-    Window &operator=(const Window &) = delete;
+		static constexpr const char* wndClassName = "Nexus Direct3D Engine";
 
-private:
-    static LRESULT CALLBACK HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+		static WindowClass wndClass;
 
-    static LRESULT CALLBACK HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+		HINSTANCE hInst;
+	};
 
-    LRESULT HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+ public:
+	Window(int width, int height, const WCHAR* name);
 
-private:
-    int width{}, height{};
-    HWND hWnd;
+	~Window();
+
+	Window(const Window&) = delete;
+
+	Window& operator=(const Window&) = delete;
+
+ private:
+	static LRESULT CALLBACK HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
+	static LRESULT CALLBACK HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
+	LRESULT HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
+ private:
+	int width{}, height{};
+	HWND hWnd;
 };
 
-#endif //NEXUS_WINDOW_H
+//helper macro
+#define NEXUS_EXCEPT(help_result) Window::Exception(__LINE__, __FILE__, help_result)
+
+#endif//NEXUS_WINDOW_H
