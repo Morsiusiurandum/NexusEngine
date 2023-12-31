@@ -3,8 +3,8 @@
 
 #pragma once
 
-#include "NexusMacro.h"
 #include "NexusException.h"
+#include "NexusMacro.h"
 
 class Window
 {
@@ -74,6 +74,7 @@ class Window
 };
 
 //helper macro
-#define NEXUS_EXCEPT(help_result) Window::Exception(__LINE__, __FILE__, help_result)
+#define NEXUS_EXCEPT(hr) Window::Exception(__LINE__, __FILE__, hr)
+#define NEXUS_LAST_EXCEPT() Window::Exception(__LINE__, __FILE__, GetLastError())
 
 #endif//NEXUS_WINDOW_H

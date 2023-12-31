@@ -97,8 +97,11 @@ Window::Window(int width, int height, const WCHAR* name)
 	window_rect.top = 100;
 	window_rect.bottom = height + window_rect.top;
 	DWORD window_style = WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU;
-	AdjustWindowRect(&window_rect, window_style, FALSE);
-	
+	if (FAILED(AdjustWindowRect(&window_rect, window_style, FALSE)))
+	{
+		throw NEXUS_LAST_EXCEPT();
+	}
+
 	//creat window and get the instance
 	hWnd = CreateWindow(
 		CHAR2LPCWSTR(WindowClass::GetName()),
@@ -107,6 +110,8 @@ Window::Window(int width, int height, const WCHAR* name)
 		window_rect.right - window_rect.left, window_rect.bottom - window_rect.top,
 		nullptr, nullptr,
 		WindowClass::GetInstance(), this);
+
+	if (hWnd == nullptr) throw NEXUS_LAST_EXCEPT();
 
 	ShowWindow(hWnd, SW_SHOWDEFAULT);
 }
