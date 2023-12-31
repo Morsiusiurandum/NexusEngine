@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include "Keyboard.h"
 #include "NexusException.h"
 #include "NexusMacro.h"
 
@@ -16,7 +17,7 @@ class Window
 
 		const char* what() const noexcept override;
 
-		virtual const char* GetType() const noexcept;
+		const char* GetType() const noexcept override;
 
 		static std::string TranslateErrorCode(HRESULT hResult) noexcept;
 
@@ -68,8 +69,12 @@ class Window
 
 	LRESULT HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
+ public:
+	Keyboard keyboard;
+
  private:
 	int width{}, height{};
+
 	HWND hWnd;
 };
 

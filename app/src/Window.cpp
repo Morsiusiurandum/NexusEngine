@@ -149,12 +149,35 @@ LRESULT Window::HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 
 LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-
 	switch (msg)
 	{
 	case WM_CLOSE:
 		PostQuitMessage(0);
 		return 0;
+	// Clear state when the main window loses focus
+	case WM_KILLFOCUS:
+		keyboard.ClearState();
+		break;
+		
+	case WM_SYSKEYDOWN:
+	case WM_KEYDOWN:
+		// To distinguish between a continuous press and a single click
+		// MSDN says that the 30th position of the lParam is the discriminating bit
+		if (!((lParam & 0x40000000) || keyboard.AutoRepeatIsEnabled()))
+		{
+			keyboard.OnKeyPressed(wParam);
+		}
+		break;
+
+	case WM_SYSKEYUP:
+	case WM_KEYUP:
+		keyboard.OnKeyReleased(wParam);
+		break;
+	case WM_CHAR:
+		keyboard.OnChar(static_cast<char>(wParam));
+		break;
+	default:
+		break;
 	}
 
 	return DefWindowProc(hWnd, msg, wParam, lParam);

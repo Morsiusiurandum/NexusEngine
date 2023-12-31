@@ -13,6 +13,10 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 		{
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
+			if (wnd.keyboard.KeyIsPressed(VK_MENU))
+			{
+				MessageBoxA(nullptr, "Hello World!", "Alt was pressed!", MB_OK);
+			}
 		}
 
 		return msgResult == -1 ? -1 : (int)msg.wParam;
@@ -29,4 +33,6 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	{
 		MessageBoxA(nullptr, "No details available", "Unknown Exception", MB_OK | MB_ICONEXCLAMATION);
 	}
+
+	return -1;
 }
