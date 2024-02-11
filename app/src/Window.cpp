@@ -1,21 +1,25 @@
 #include "Window.h"
 
-Window::Exception::Exception(int line, const char* file, HRESULT hResult) noexcept
+Window::Exception::Exception(const int line, const char* file, const HRESULT hResult) noexcept
 	: NexusException(line, file), hResult(hResult)
 {
 }
 
-std::string Window::Exception::TranslateErrorCode(HRESULT hr) noexcept
+auto Window::Exception::TranslateErrorCode(HRESULT hResult) noexcept -> std::string
 {
 	char* message_buffer = nullptr;
 	// windows will allocate memory for err string and make our pointer point to it
-	const DWORD format_message_length = FormatMessageA(
-		FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
-		nullptr, hr, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-		((message_buffer)), 0, nullptr);
 
 	// 0 string length returned indicates a failure
-	if (format_message_length == 0)
+	if (const DWORD format_message_length = FormatMessageA(
+			FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+			nullptr,
+			hResult,
+			MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+			message_buffer,
+			0,
+			nullptr);
+		format_message_length == 0)
 	{
 		return "Unidentified error code";
 	}
@@ -26,7 +30,7 @@ std::string Window::Exception::TranslateErrorCode(HRESULT hr) noexcept
 	return error_string;
 }
 
-const char* Window::Exception::what() const noexcept
+auto Window::Exception::what() const noexcept -> const char*
 {
 	std::ostringstream oss;
 	oss << GetType() << std::endl
@@ -36,17 +40,17 @@ const char* Window::Exception::what() const noexcept
 	return whatBuffer.c_str();
 }
 
-const char* Window::Exception::GetType() const noexcept
+auto Window::Exception::GetType() const noexcept -> const char*
 {
 	return "Nexus Windows Exception";
 }
 
-HRESULT Window::Exception::GetErrorCode() const noexcept
+auto Window::Exception::GetErrorCode() const noexcept -> HRESULT
 {
 	return hResult;
 }
 
-std::string Window::Exception::GetErrorString() const noexcept
+auto Window::Exception::GetErrorString() const noexcept -> std::string
 {
 	return TranslateErrorCode(hResult);
 }
@@ -79,17 +83,18 @@ Window::WindowClass::~WindowClass()
 	UnregisterClass(reinterpret_cast<LPCWSTR>(wndClassName), GetInstance());
 }
 
-const char* Window::WindowClass::GetName() noexcept
+auto Window::WindowClass::GetName() noexcept -> const char*
 {
 	return wndClassName;
 }
 
-HINSTANCE Window::WindowClass::GetInstance() noexcept
+auto Window::WindowClass::GetInstance() noexcept -> HINSTANCE
 {
 	return wndClass.hInst;
 }
 
-Window::Window(int width, int height, const WCHAR* name)
+Window::Window(const int width, const int height, const WCHAR* name)
+	: width(width), height(height)
 {
 	RECT window_rect;
 	window_rect.left = 100;
@@ -97,7 +102,7 @@ Window::Window(int width, int height, const WCHAR* name)
 	window_rect.top = 100;
 	window_rect.bottom = height + window_rect.top;
 	DWORD window_style = WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU;
-	if (FAILED(AdjustWindowRect(&window_rect, window_style, FALSE)))
+	if ((AdjustWindowRect(&window_rect, window_style, FALSE)) == 0)
 	{
 		throw NEXUS_LAST_EXCEPT();
 	}
@@ -111,7 +116,10 @@ Window::Window(int width, int height, const WCHAR* name)
 		nullptr, nullptr,
 		WindowClass::GetInstance(), this);
 
-	if (hWnd == nullptr) throw NEXUS_LAST_EXCEPT();
+	if (hWnd == nullptr)
+	{
+		throw NEXUS_LAST_EXCEPT();
+	}
 
 	ShowWindow(hWnd, SW_SHOWDEFAULT);
 }
@@ -121,7 +129,7 @@ Window::~Window()
 	DestroyWindow(hWnd);
 }
 
-LRESULT Window::HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
+auto Window::HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) -> LRESULT
 {
 
 	//weather is in no-client
@@ -131,39 +139,40 @@ LRESULT Window::HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		auto* const pWnd = static_cast<Window* const>(pCreate->lpCreateParams);
 
 		//store the ptr in user data
-		SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG_PTR)pWnd);
+		SetWindowLongPtr(hWnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pWnd));
 		//use thunk to deal with messages
-		SetWindowLongPtr(hWnd, GWLP_WNDPROC, (LONG_PTR)&Window::HandleMsgThunk);
+		SetWindowLongPtr(hWnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(&Window::HandleMsgThunk));
 		return pWnd->HandleMsg(hWnd, msg, wParam, lParam);
 	}
 
 	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
 
-LRESULT Window::HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
+auto Window::HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) -> LRESULT
 {
 
 	auto* const pWnd = reinterpret_cast<Window* const>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
 	return pWnd->HandleMsg(hWnd, msg, wParam, lParam);
 }
 
-LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
+auto Window::HandleMsg(HWND hWnd, const UINT msg, const WPARAM wParam, LPARAM lParam) -> LRESULT
 {
+	//Keyboard Messages
 	switch (msg)
 	{
 	case WM_CLOSE:
 		PostQuitMessage(0);
 		return 0;
-	// Clear state when the main window loses focus
+		// Clear state when the main window loses focus
 	case WM_KILLFOCUS:
 		keyboard.ClearState();
 		break;
-		
+
 	case WM_SYSKEYDOWN:
 	case WM_KEYDOWN:
 		// To distinguish between a continuous press and a single click
 		// MSDN says that the 30th position of the lParam is the discriminating bit
-		if (!((lParam & 0x40000000) || keyboard.AutoRepeatIsEnabled()))
+		if (constexpr int bits = 0x40000000; ((lParam & bits) == 0) && !keyboard.AutoRepeatIsEnabled())
 		{
 			keyboard.OnKeyPressed(wParam);
 		}
@@ -178,6 +187,56 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		break;
 	default:
 		break;
+	}
+
+	//Mouse Messages
+	switch (msg)
+	{
+	case WM_MOUSEMOVE: {
+		const auto [x, y] = MAKEPOINTS(lParam);
+		mouse.OnMouseMove(x, y);
+		break;
+	}
+	case WM_LBUTTONDOWN: {
+		const auto [x, y] = MAKEPOINTS(lParam);
+		mouse.OnLeftPressed(x, y);
+		break;
+	}
+	case WM_RBUTTONDOWN: {
+
+		const auto [x, y] = MAKEPOINTS(lParam);
+		mouse.OnRightPressed(x, y);
+		break;
+	}
+	case WM_LBUTTONUP: {
+
+		const auto [x, y] = MAKEPOINTS(lParam);
+		mouse.OnLeftReleased(x, y);
+		break;
+	}
+	case WM_RBUTTONUP: {
+
+		const auto [x, y] = MAKEPOINTS(lParam);
+		mouse.OnRightReleased(x, y);
+		break;
+	}
+	case WM_MOUSEWHEEL: {
+		const auto [x, y] = MAKEPOINTS(lParam);
+		const int delta = GET_WHEEL_DELTA_WPARAM(wParam);
+		if (GET_WHEEL_DELTA_WPARAM(wParam) > 0)
+		{
+			mouse.OnWheelUp(x, y);
+		}
+		else if (GET_WHEEL_DELTA_WPARAM(wParam) < 0)
+		{
+			mouse.OnWheelDown(x, y);
+		}
+		mouse.OnWheelDelta(x, y, delta);
+		break;
+	}
+	default: {
+		break;
+	}
 	}
 
 	return DefWindowProc(hWnd, msg, wParam, lParam);

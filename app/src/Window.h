@@ -3,7 +3,8 @@
 
 #pragma once
 
-#include "Keyboard.h"
+#include "IO/Keyboard.h"
+#include "IO/Mouse.h"
 #include "NexusException.h"
 #include "NexusMacro.h"
 
@@ -15,15 +16,15 @@ class Window
 	 public:
 		Exception(int line, const char* file, HRESULT hResult) noexcept;
 
-		const char* what() const noexcept override;
+		auto what() const noexcept -> const char* override;
 
-		const char* GetType() const noexcept override;
+		auto GetType() const noexcept -> const char* override;
 
-		static std::string TranslateErrorCode(HRESULT hResult) noexcept;
+		auto GetErrorCode() const noexcept -> HRESULT;
 
-		HRESULT GetErrorCode() const noexcept;
+		auto GetErrorString() const noexcept -> std::string;
 
-		std::string GetErrorString() const noexcept;
+		static auto TranslateErrorCode(HRESULT hResult) noexcept -> std::string;
 
 	 private:
 		HRESULT hResult;
@@ -33,13 +34,13 @@ class Window
 	class WindowClass
 	{
 	 public:
-		static const char* GetName() noexcept;
+		static auto GetName() noexcept -> const char*;
 
-		static HINSTANCE GetInstance() noexcept;
+		static auto GetInstance() noexcept -> HINSTANCE;
 
 		WindowClass(const WindowClass&) = delete;
 
-		WindowClass& operator=(const WindowClass&) = delete;
+		auto operator=(const WindowClass&) -> WindowClass& = delete;
 
 	 private:
 		WindowClass() noexcept;
@@ -60,17 +61,19 @@ class Window
 
 	Window(const Window&) = delete;
 
-	Window& operator=(const Window&) = delete;
+	auto operator=(const Window&) -> Window& = delete;
 
  private:
-	static LRESULT CALLBACK HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+	static auto CALLBACK HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) -> LRESULT;
 
-	static LRESULT CALLBACK HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+	static auto CALLBACK HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) -> LRESULT;
 
-	LRESULT HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+	auto HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) -> LRESULT;
 
  public:
 	Keyboard keyboard;
+
+	Mouse mouse;
 
  private:
 	int width{}, height{};

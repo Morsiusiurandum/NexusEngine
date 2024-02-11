@@ -17,7 +17,7 @@ add_compile_definitions(_UNICODE UNICODE)
 include_directories(include)
 
 aux_source_directory(resources resources)
-aux_source_directory(src src)
+file(GLOB_RECURSE src  src/*.cpp  src/*.h)
 
 add_executable(
         ${PROJECT_NAME}

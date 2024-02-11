@@ -2,6 +2,7 @@
 #define NEXUS_KEYBOARD_H
 
 #include <bitset>
+#include <optional>
 #include <queue>
 
 class Keyboard
@@ -50,7 +51,7 @@ class Keyboard
 	Keyboard& operator=(const Keyboard&) = delete;
 
 	// key event stuff
-	[[nodiscard]] bool KeyIsPressed(unsigned char key_code) const noexcept;
+	[[nodiscard]] auto KeyIsPressed(unsigned char key_code) const noexcept -> bool;
 
 	std::optional<Event> ReadKey() noexcept;
 
