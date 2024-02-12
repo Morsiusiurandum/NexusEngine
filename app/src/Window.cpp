@@ -193,8 +193,29 @@ auto Window::HandleMsg(HWND hWnd, const UINT msg, const WPARAM wParam, LPARAM lP
 	switch (msg)
 	{
 	case WM_MOUSEMOVE: {
-		const auto [x, y] = MAKEPOINTS(lParam);
-		mouse.OnMouseMove(x, y);
+		if (const auto [x, y] = MAKEPOINTS(lParam);
+			x >= 0 && x < width && y >= 0 && y < height)
+		{
+			mouse.OnMouseMove(x, y);
+			if (!mouse.IsInWindow())
+			{
+				SetCapture(hWnd);
+				mouse.OnMouseEnter();
+			}
+		}
+		else
+		{
+			if (wParam & (MK_LBUTTON | MK_RBUTTON))
+			{
+				mouse.OnMouseMove(x, y);
+			}
+			else
+			{
+				ReleaseCapture();
+				mouse.OnMouseLeave();
+			}
+		}
+
 		break;
 	}
 	case WM_LBUTTONDOWN: {
@@ -223,14 +244,6 @@ auto Window::HandleMsg(HWND hWnd, const UINT msg, const WPARAM wParam, LPARAM lP
 	case WM_MOUSEWHEEL: {
 		const auto [x, y] = MAKEPOINTS(lParam);
 		const int delta = GET_WHEEL_DELTA_WPARAM(wParam);
-		if (GET_WHEEL_DELTA_WPARAM(wParam) > 0)
-		{
-			mouse.OnWheelUp(x, y);
-		}
-		else if (GET_WHEEL_DELTA_WPARAM(wParam) < 0)
-		{
-			mouse.OnWheelDown(x, y);
-		}
 		mouse.OnWheelDelta(x, y, delta);
 		break;
 	}

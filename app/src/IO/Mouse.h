@@ -37,7 +37,7 @@ class Mouse
 		int y;
 
 	 public:
-		Event(Type type, const Mouse& parent) noexcept
+		Event(const Type type, const Mouse& parent) noexcept
 			: type(type),
 			  leftIsPressed(parent.leftIsPressed),
 			  rightIsPressed(parent.rightIsPressed),
@@ -46,64 +46,40 @@ class Mouse
 		{
 		}
 
-		[[nodiscard]] Type GetType() const noexcept
+		[[nodiscard]] auto GetType() const noexcept -> Type
 		{
 			return type;
 		}
 
-		[[nodiscard]] std::pair<int, int> GetPos() const noexcept
+		[[nodiscard]] auto GetPos() const noexcept -> std::pair<int, int>
 		{
 			return {x, y};
 		}
 
-		[[nodiscard]] int GetPosX() const noexcept
+		[[nodiscard]] auto GetPosX() const noexcept -> int
 		{
 			return x;
 		}
 
-		[[nodiscard]] int GetPosY() const noexcept
+		[[nodiscard]] auto GetPosY() const noexcept -> int
 		{
 			return y;
 		}
 
-		[[nodiscard]] bool LeftIsPressed() const noexcept
+		[[nodiscard]] auto LeftIsPressed() const noexcept -> bool
 		{
 			return leftIsPressed;
 		}
 
-		[[nodiscard]] bool RightIsPressed() const noexcept
+		[[nodiscard]] auto RightIsPressed() const noexcept -> bool
 		{
 			return rightIsPressed;
 		}
 	};
 
- public:
 	Mouse() = default;
 
 	Mouse(const Mouse&) = delete;
-
-	Mouse& operator=(const Mouse&) = delete;
-
-	std::optional<RawDelta> ReadRawDelta() noexcept;
-
-	[[nodiscard]] std::pair<int, int> GetPos() const noexcept;
-
-	[[nodiscard]] int GetPosX() const noexcept;
-
-	[[nodiscard]] int GetPosY() const noexcept;
-
-	[[nodiscard]] bool IsInWindow() const noexcept;
-
-	[[nodiscard]] bool LeftIsPressed() const noexcept;
-
-	[[nodiscard]] bool RightIsPressed() const noexcept;
-
-	std::optional<Mouse::Event> Read() noexcept;
-
-	[[nodiscard]] bool IsEmpty() const noexcept
-	{
-		return buffer.empty();
-	}
 
 	void Flush() noexcept;
 
@@ -111,9 +87,47 @@ class Mouse
 
 	void DisableRaw() noexcept;
 
-	bool RawEnabled() const noexcept;
+	auto operator=(const Mouse&) -> Mouse& = delete;
+
+	auto ReadRawDelta() noexcept -> std::optional<RawDelta>;
+
+	auto Read() noexcept -> std::optional<Event>;
+
+	[[nodiscard]] auto GetPos() const noexcept -> std::pair<int, int>;
+
+	[[nodiscard]] auto GetPosX() const noexcept -> int;
+
+	[[nodiscard]] auto GetPosY() const noexcept -> int;
+
+	[[nodiscard]] auto IsInWindow() const noexcept -> bool;
+
+	[[nodiscard]] auto LeftIsPressed() const noexcept -> bool;
+
+	[[nodiscard]] auto RightIsPressed() const noexcept -> bool;
+
+	[[nodiscard]] auto RawEnabled() const noexcept -> bool;
+
+	[[nodiscard]] auto IsEmpty() const noexcept -> bool;
 
  private:
+	int x{};
+
+	int y{};
+
+	bool leftIsPressed = false;
+
+	bool rightIsPressed = false;
+
+	bool isInWindow = false;
+
+	int wheelDeltaCarry = 0;
+
+	bool rawEnabled = false;
+
+	std::queue<Event> buffer;
+
+	std::queue<RawDelta> rawDeltaBuffer;
+
 	void OnMouseMove(int x, int y) noexcept;
 
 	void OnMouseLeave() noexcept;
@@ -140,26 +154,7 @@ class Mouse
 
 	void OnWheelDelta(int x, int y, int delta) noexcept;
 
- private:
 	static constexpr unsigned int bufferSize = 16U;
-
-	int x;
-
-	int y;
-
-	bool leftIsPressed = false;
-
-	bool rightIsPressed = false;
-
-	bool isInWindow = false;
-
-	int wheelDeltaCarry = 0;
-
-	bool rawEnabled = false;
-
-	std::queue<Event> buffer;
-
-	std::queue<RawDelta> rawDeltaBuffer;
 };
 
 #endif
