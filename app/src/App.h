@@ -4,15 +4,17 @@
 
 class App
 {
- public:
-	App();
-	
-	auto Awake()   -> int;
+public:
+    App();
 
- private:
-	void Update();
-	
-	Window window_;
+    auto Awake() -> int;
+
+    auto Update() -> int;
+
+private:
+    Window window_;
+
+    Timer timer_;
 };
 
 #endif//APP_H

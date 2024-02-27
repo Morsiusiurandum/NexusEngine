@@ -7,78 +7,88 @@
 #include "IO/Mouse.h"
 #include "NexusException.h"
 #include "NexusMacro.h"
+#include <memory.h>
+
+#include "Utils/Timer.h"
+#include "Graphics.h"
 
 class Window
 {
- public:
-	class Exception : public NexusException
-	{
-	 public:
-		Exception(int line, const char* file, HRESULT hResult) noexcept;
+public:
+    class Exception : public NexusException
+    {
+    public:
+        Exception(int line, const char *file, HRESULT hResult) noexcept;
 
-		auto what() const noexcept -> const char* override;
+        auto what() const noexcept -> const char * override;
 
-		auto GetType() const noexcept -> const char* override;
+        auto GetType() const noexcept -> const char * override;
 
-		auto GetErrorCode() const noexcept -> HRESULT;
+        auto GetErrorCode() const noexcept -> HRESULT;
 
-		auto GetErrorString() const noexcept -> std::string;
+        auto GetErrorString() const noexcept -> std::string;
 
-		static auto TranslateErrorCode(HRESULT hResult) noexcept -> std::string;
+        static auto TranslateErrorCode(HRESULT hResult) noexcept -> std::string;
 
-	 private:
-		HRESULT hResult;
-	};
+    private:
+        HRESULT hResult;
+    };
 
- private:
-	class WindowClass
-	{
-	 public:
-		static auto GetName() noexcept -> const char*;
+private:
+    class WindowClass
+    {
+    public:
+        static auto GetName() noexcept -> const char *;
 
-		static auto GetInstance() noexcept -> HINSTANCE;
+        static auto GetInstance() noexcept -> HINSTANCE;
 
-		WindowClass(const WindowClass&) = delete;
+        WindowClass(const WindowClass &) = delete;
 
-		auto operator=(const WindowClass&) -> WindowClass& = delete;
+        auto operator=(const WindowClass &) -> WindowClass & = delete;
 
-	 private:
-		WindowClass() noexcept;
+    private:
+        WindowClass() noexcept;
 
-		~WindowClass();
+        ~WindowClass();
 
-		static constexpr const char* wndClassName = "Nexus Direct3D Engine";
+        static constexpr const char *wndClassName = "Nexus Direct3D Engine";
 
-		static WindowClass wndClass;
+        static WindowClass wndClass;
 
-		HINSTANCE hInst;
-	};
+        HINSTANCE hInst;
+    };
 
- public:
-	Window(int width, int height, const WCHAR* name);
+public:
+    Window(int width, int height, const WCHAR *name);
 
-	~Window();
+    ~Window();
 
-	Window(const Window&) = delete;
+    Window(const Window &) = delete;
 
-	auto operator=(const Window&) -> Window& = delete;
+    auto operator=(const Window &) -> Window & = delete;
 
- private:
-	static auto CALLBACK HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) -> LRESULT;
+    static auto ProcessMessage() noexcept -> std::optional<int>;
 
-	static auto CALLBACK HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) -> LRESULT;
+    auto GetGraphics() const -> Graphics &;
 
-	auto HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) -> LRESULT;
+private:
+    static auto CALLBACK HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) -> LRESULT;
 
- public:
-	Keyboard keyboard;
+    static auto CALLBACK HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) -> LRESULT;
 
-	Mouse mouse;
+    auto HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) -> LRESULT;
 
- private:
-	int width{}, height{};
+public:
+    Keyboard keyboard;
 
-	HWND hWnd;
+    Mouse mouse;
+
+private:
+    int width{}, height{};
+
+    HWND hWnd;
+
+    std::unique_ptr<Graphics> graphics_ptr;
 };
 
 //helper macro
