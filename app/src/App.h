@@ -1,6 +1,6 @@
 #ifndef APP_H
 #define APP_H
-#include "Window.h"
+#include "Window/Window.h"
 
 class App
 {
@@ -9,12 +9,12 @@ public:
 
     auto Awake() -> int;
 
-    auto Update() -> int;
+private:
+    auto Update() -> void;
 
 private:
-    Window window_;
-
-    Timer timer_;
+    Window window;
+    Timer  timer;
 };
 
-#endif//APP_H
+#endif //APP_H

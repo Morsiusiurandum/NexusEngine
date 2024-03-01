@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 3.24)
 # Edit the BuildOptions.cmake file to change build time options
-add_definitions(-DUNICODE -D_UNICODE)
 
 include(BuildOptions.cmake)
 

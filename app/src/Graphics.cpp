@@ -1,4 +1,6 @@
 #include "Graphics.h"
+#include "Window/Window.h"
+#include <iostream>
 #pragma comment(lib, "d3d11.lib")
 
 Graphics::Graphics(HWND window)
@@ -20,34 +22,38 @@ Graphics::Graphics(HWND window)
     swap_chain_desc.SwapEffect                         = DXGI_SWAP_EFFECT_DISCARD;
     swap_chain_desc.Flags                              = 0;
 
-    D3D11CreateDeviceAndSwapChain(
-            nullptr,
-            D3D_DRIVER_TYPE_HARDWARE,
-            nullptr,
-            0,
-            nullptr,
-            0,
-            D3D11_SDK_VERSION,
-            &swap_chain_desc,
-            &swap_chain_,
-            &device_,
-            nullptr,
-            &device_context_);
+    auto hr = D3D11CreateDeviceAndSwapChain(
+        nullptr,
+        D3D_DRIVER_TYPE_HARDWARE,
+        nullptr,
+        0,
+        nullptr,
+        0,
+        D3D11_SDK_VERSION,
+        &swap_chain_desc,
+        &swap_chain_,
+        &device_,
+        nullptr,
+        &device_context_);
 
+    if (hr != SEVERITY_SUCCESS)
+    {
+        throw GraphicsException(__LINE__, __FILE__, hr);
+    }
+    
     ID3D11Resource *back_buffer_ = nullptr;
 
     swap_chain_->GetBuffer(
-            0,
-            _uuidof(ID3D11Resource),
-            reinterpret_cast<void **>(&back_buffer_));
+        0,
+        _uuidof(ID3D11Resource),
+        reinterpret_cast<void **>(&back_buffer_));
 
     device_->CreateRenderTargetView(
-            back_buffer_,
-            nullptr,
-            &render_target_view_);
+        back_buffer_,
+        nullptr,
+        &render_target_view_);
 
     back_buffer_->Release();
-
 }
 
 Graphics::~Graphics()
@@ -73,8 +79,8 @@ auto Graphics::EndFrame() -> void
 
 auto Graphics::ClearBuffer(float r, float g, float b) noexcept -> void
 {
-    const float color[] = {r, g, b, 1.0f};
+    const std::array<float, 4> color = {r, g, b, 1.0f};
     device_context_->ClearRenderTargetView(
-            render_target_view_,
-            color);
+        render_target_view_,
+        color.data());
 }
