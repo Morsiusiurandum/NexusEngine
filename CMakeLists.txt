@@ -14,3 +14,5 @@ if (SINGLE_INSTANCE_ONLY)
 endif ()
 
 add_subdirectory(app)
+
+add_dependencies(${PROJECT_NAME} shaders)

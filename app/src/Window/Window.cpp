@@ -104,7 +104,7 @@ auto Window::ProcessMessage() noexcept -> std::optional<int>
     return {};
 }
 
-auto Window::GetGraphics() const -> ::Graphics &
+auto Window::GetGraphics() const -> Graphics &
 {
     return *graphics_ptr;
 }

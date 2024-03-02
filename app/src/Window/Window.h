@@ -51,7 +51,7 @@ public:
 
     [[nodiscard]] auto ProcessMessage() noexcept -> std::optional<int>;
 
-    [[nodiscard]] auto GetGraphics() const -> Graphics &;
+    [[nodiscard]] auto GetGraphics() const -> Graphics& ;
 
 private:
     [[nodiscard]] auto HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) -> LRESULT;

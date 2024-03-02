@@ -7,9 +7,10 @@ GraphicsException::GraphicsException(int line, const char *file, HRESULT hResult
 auto GraphicsException::what() const noexcept -> const char *
 {
     std::ostringstream oss;
-    oss << (GetType()) << std::endl
+    oss << GetType() << std::endl
         << "[Error Code]" << GetErrorCode() << std::endl
-        << "[Description]" << GetErrorString() << std::endl;
+        << "[Description]" << GetErrorString() << std::endl
+        << GetOriginString() << std::endl;
     whatBuffer = oss.str();
     return (whatBuffer.c_str());
 }

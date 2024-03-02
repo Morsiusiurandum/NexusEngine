@@ -1,6 +1,5 @@
 #include "App.h"
 
-
 App::App()
     : window(800, 600, CHAR2LPCWSTR("Start Window")), timer()
 {
@@ -21,9 +20,10 @@ auto App::Awake() -> int
 auto App::Update() -> void
 {
 
-    window.GetGraphics().EndFrame();
     const float r = sin(timer.Peek());
     window.GetGraphics().ClearBuffer(r, 1.0f, 1.0f);
+    window.GetGraphics().Draw();
+    window.GetGraphics().EndFrame();
     if (window.keyboard.KeyIsPressed(VK_MENU))
     {
         MessageBoxA(nullptr, "Hello World!", "Alt was pressed!", MB_OK);
