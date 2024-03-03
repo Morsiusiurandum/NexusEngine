@@ -21,8 +21,8 @@ auto App::Update() -> void
 {
 
     const float r = sin(timer.Peek());
-    window.GetGraphics().ClearBuffer(r, 1.0f, 1.0f);
-    window.GetGraphics().Draw();
+    window.GetGraphics().ClearBuffer(r, r, 1.0f);
+    window.GetGraphics().Draw((timer.Peek()));
     window.GetGraphics().EndFrame();
     if (window.keyboard.KeyIsPressed(VK_MENU))
     {

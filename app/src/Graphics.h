@@ -32,7 +32,7 @@ public:
 
     auto ClearBuffer(float r, float g, float b) noexcept -> void;
 
-    auto Draw() -> void;
+    auto Draw(float a) -> void;
 
 private:
     Microsoft::WRL::ComPtr<ID3D11Device>           device;

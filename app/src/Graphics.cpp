@@ -59,7 +59,7 @@ auto Graphics::ClearBuffer(float r, float g, float b) noexcept -> void
     device_context->ClearRenderTargetView(render_target_view.Get(), color.data());
 }
 
-auto Graphics::Draw() -> void
+auto Graphics::Draw(float a) -> void
 {
     struct Vertex
     {
@@ -67,12 +67,16 @@ auto Graphics::Draw() -> void
         float y;
     };
 
-    constexpr std::array<Vertex, 3> vertices{
+    constexpr std::array<Vertex, 6> vertices{
         {{0.0f, 0.5f},
-         {0.5f, 0.5f},
-         {0.5f, -0.5f}}
+         {0.5f, -0.5f},
+         {-0.5f, -0.5f},
+         {-0.3f, 0.3f},
+         {0.3f, 0.3f},
+         {0.0f, -0.8f}}
     };
 
+    // bind vertex buffer
     Microsoft::WRL::ComPtr<ID3D11Buffer> vertex_buffer;
     D3D11_BUFFER_DESC                    buffer_desc      = {};
     D3D11_SUBRESOURCE_DATA               subresource_data = {};
@@ -101,8 +105,69 @@ auto Graphics::Draw() -> void
         &stride,
         &offset);
 
-    Microsoft::WRL::ComPtr<ID3DBlob> blob;
+    const unsigned short indexs[] = {
+        0, 1, 2,
+        0, 2, 3,
+        0, 4, 1,
+        2, 1, 5};
 
+    Microsoft::WRL::ComPtr<ID3D11Buffer> index_buffer;
+    D3D11_BUFFER_DESC                    index_buffer_desc = {};
+    index_buffer_desc.BindFlags                            = D3D11_BIND_VERTEX_BUFFER;
+    index_buffer_desc.Usage                                = D3D11_USAGE_DEFAULT;
+    index_buffer_desc.CPUAccessFlags                       = 0U;
+    index_buffer_desc.MiscFlags                            = 0U;
+    index_buffer_desc.ByteWidth                            = sizeof(indexs);
+    index_buffer_desc.StructureByteStride                  = 16U;
+
+    D3D11_SUBRESOURCE_DATA index_subresource_data = {};
+    index_subresource_data.pSysMem                = indexs;
+
+    GRAPHICS_EXCEPTION(
+        device->CreateBuffer(
+            &index_buffer_desc,
+            &index_subresource_data,
+            &index_buffer));
+
+    device_context->IASetIndexBuffer(
+        index_buffer.Get(),
+        DXGI_FORMAT_R16_UINT,
+        0U);
+
+    struct ConstantBuffer
+    {
+        struct
+        {
+            float element[4][4];
+        } transformation;
+    };
+
+    const ConstantBuffer constant_buffer = {
+        {{{0.75f*cos(a), sin(a), 0.0f, 0.0f},
+          {0.75f*-sin(a), cos(a), 0.0f, 0.0f},
+          {0.0f, 0.0f, 1.0f, 0.0f},
+          {0.0f, 0.0f, 0.0f, 1.0f}}}};
+
+    Microsoft::WRL::ComPtr<ID3D11Buffer> const_buffer;
+    D3D11_BUFFER_DESC                    const_buffer_desc = {};
+    const_buffer_desc.BindFlags                            = D3D11_BIND_CONSTANT_BUFFER;
+    const_buffer_desc.Usage                                = D3D11_USAGE_DYNAMIC;
+    const_buffer_desc.CPUAccessFlags                       = D3D11_CPU_ACCESS_WRITE;
+    const_buffer_desc.MiscFlags                            = 0U;
+    const_buffer_desc.ByteWidth                            = sizeof(constant_buffer);
+    const_buffer_desc.StructureByteStride                  = 0U;
+
+    D3D11_SUBRESOURCE_DATA const_subresource_data = {};
+    const_subresource_data.pSysMem                = &constant_buffer;
+
+    GRAPHICS_EXCEPTION(
+        device->CreateBuffer(
+            &const_buffer_desc,
+            &const_subresource_data,
+            &const_buffer));
+    device_context->VSSetConstantBuffers(0u, 1u, const_buffer.GetAddressOf());
+
+    Microsoft::WRL::ComPtr<ID3DBlob> blob;
     // create pixel shader
     Microsoft::WRL::ComPtr<ID3D11PixelShader> pixel_shader;              //smart point
     GRAPHICS_EXCEPTION(D3DReadFileToBlob(L"../PixelShader.cso", &blob)); //load flie
@@ -158,5 +223,7 @@ auto Graphics::Draw() -> void
     viewport.TopLeftY = 0;
     device_context->RSSetViewports(1U, &viewport);
 
-    device_context->Draw(3U, 0U);
+    // device_context->Draw(vertices.size(), 0U);
+
+    device_context->DrawIndexed(std::size(indexs), 0U, 0U);
 }
