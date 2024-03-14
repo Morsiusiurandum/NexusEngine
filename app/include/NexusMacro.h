@@ -1,9 +1,16 @@
 #ifndef MACRO_H
 #define MACRO_H
 
+#include <vector>
 #include <windows.h>
 
 #include <minwindef.h>
+
+#ifdef DEBUG
+#define IS_DEBUG true
+#else
+#define IS_DEBUG false
+#endif
 
 #define CHAR2LPCWSTR(charArray) (convertCharArrayToLPCWSTR(charArray))
 

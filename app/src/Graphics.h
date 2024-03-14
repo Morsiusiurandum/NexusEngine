@@ -1,11 +1,15 @@
 #ifndef GRAPHICS_H
 #define GRAPHICS_H
 
+#include <DirectXMath.h>
 #include <NexusMacro.h>
 #include <array>
 #include <d3d11.h>
-#include <wrl.h>
 #include <d3dcompiler.h>
+#include <memory>
+#include <random>
+#include <vector>
+#include <wrl.h>
 
 #include "Exception/GraphicsException.h"
 
@@ -15,6 +19,8 @@
 
 class Graphics
 {
+    friend class Bindable;
+
 public:
     /**
      * \brief Default constructor
@@ -34,11 +40,20 @@ public:
 
     auto Draw(float a) -> void;
 
+    auto DrawIndexed(UINT count) -> void;
+
+    void              SetProjection(DirectX::FXMMATRIX proj) noexcept;
+    DirectX::XMMATRIX GetProjection() const noexcept;
+
+private:
+    DirectX::XMMATRIX projection;
+
 private:
     Microsoft::WRL::ComPtr<ID3D11Device>           device;
     Microsoft::WRL::ComPtr<IDXGISwapChain>         swap_chain;
     Microsoft::WRL::ComPtr<ID3D11DeviceContext>    device_context;
     Microsoft::WRL::ComPtr<ID3D11RenderTargetView> render_target_view;
+    Microsoft::WRL::ComPtr<ID3D11DepthStencilView> pDSV;
 };
 
 #endif // GRAPHICS_H

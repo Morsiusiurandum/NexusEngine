@@ -8,13 +8,15 @@ public:
     App();
 
     auto Awake() -> int;
+    ~App();
 
 private:
     auto Update() -> void;
 
 private:
-    Window window;
-    Timer  timer;
+    Window                                  window;
+    Timer                                   timer;
+    std::vector<std::unique_ptr<class Box>> boxes;
 };
 
 #endif //APP_H

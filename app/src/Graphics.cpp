@@ -1,4 +1,11 @@
 #include "Graphics.h"
+#include <DirectXMath.h>
+#include <cmath>
+#include <d3dcompiler.h>
+#include <sstream>
+
+namespace wrl = Microsoft::WRL;
+namespace dx  = DirectX;
 
 Graphics::Graphics(HWND window)
 {
@@ -19,11 +26,16 @@ Graphics::Graphics(HWND window)
     swap_chain_desc.SwapEffect                         = DXGI_SWAP_EFFECT_DISCARD;
     swap_chain_desc.Flags                              = 0;
 
+    UINT swapCreateFlags = 0u;
+#ifndef NDEBUG
+    swapCreateFlags |= D3D11_CREATE_DEVICE_DEBUG;
+#endif
+
     GRAPHICS_EXCEPTION(D3D11CreateDeviceAndSwapChain(
         nullptr,
         D3D_DRIVER_TYPE_HARDWARE,
         nullptr,
-        0,
+        swapCreateFlags,
         nullptr,
         0,
         D3D11_SDK_VERSION,
@@ -35,21 +47,69 @@ Graphics::Graphics(HWND window)
 
     // Use smart point to auto release
     Microsoft::WRL::ComPtr<ID3D11Resource> back_buffer;
+    GRAPHICS_EXCEPTION(swap_chain->GetBuffer(0, _uuidof(ID3D11Resource), &back_buffer));
+    GRAPHICS_EXCEPTION(device->CreateRenderTargetView(back_buffer.Get(), nullptr, &render_target_view));
 
-    GRAPHICS_EXCEPTION(swap_chain->GetBuffer(
-        0,
-        _uuidof(ID3D11Resource),
-        &back_buffer));
+    // create depth stensil state
+    D3D11_DEPTH_STENCIL_DESC dsDesc = {};
+    dsDesc.DepthEnable              = TRUE;
+    dsDesc.DepthWriteMask           = D3D11_DEPTH_WRITE_MASK_ALL;
+    dsDesc.DepthFunc                = D3D11_COMPARISON_LESS;
+    wrl::ComPtr<ID3D11DepthStencilState> pDSState;
+    GRAPHICS_EXCEPTION(device->CreateDepthStencilState(&dsDesc, &pDSState));
 
-    GRAPHICS_EXCEPTION(device->CreateRenderTargetView(
-        back_buffer.Get(),
-        nullptr,
-        &render_target_view));
+    // bind depth state
+    device_context->OMSetDepthStencilState(pDSState.Get(), 1u);
+
+    // create depth stensil texture
+    wrl::ComPtr<ID3D11Texture2D> pDepthStencil;
+    D3D11_TEXTURE2D_DESC         descDepth = {};
+    descDepth.Width                        = 800u;
+    descDepth.Height                       = 600u;
+    descDepth.MipLevels                    = 1u;
+    descDepth.ArraySize                    = 1u;
+    descDepth.Format                       = DXGI_FORMAT_D32_FLOAT;
+    descDepth.SampleDesc.Count             = 1u;
+    descDepth.SampleDesc.Quality           = 0u;
+    descDepth.Usage                        = D3D11_USAGE_DEFAULT;
+    descDepth.BindFlags                    = D3D11_BIND_DEPTH_STENCIL;
+    GRAPHICS_EXCEPTION(device->CreateTexture2D(&descDepth, nullptr, &pDepthStencil));
+
+    // create view of depth stensil texture
+    D3D11_DEPTH_STENCIL_VIEW_DESC descDSV = {};
+    descDSV.Format                        = DXGI_FORMAT_D32_FLOAT;
+    descDSV.ViewDimension                 = D3D11_DSV_DIMENSION_TEXTURE2D;
+    descDSV.Texture2D.MipSlice            = 0u;
+    (device->CreateDepthStencilView(pDepthStencil.Get(), &descDSV, &pDSV));
+
+    // bind depth stensil view to OM
+    device_context->OMSetRenderTargets(1u, render_target_view.GetAddressOf(), pDSV.Get());
+
+    // view port
+    D3D11_VIEWPORT viewport;
+    viewport.Width    = 800;
+    viewport.Height   = 600;
+    viewport.MinDepth = 0;
+    viewport.MaxDepth = 1;
+    viewport.TopLeftX = 0;
+    viewport.TopLeftY = 0;
+    device_context->RSSetViewports(1U, &viewport);
 }
 
 auto Graphics::EndFrame() -> void
 {
-    GRAPHICS_EXCEPTION(swap_chain->Present(1U, 0U));
+    HRESULT hr;
+    if (FAILED(hr = swap_chain->Present(1U, 0U)))
+     {
+        if (hr == DXGI_ERROR_DEVICE_REMOVED)
+        {
+            GRAPHICS_EXCEPTION(device->GetDeviceRemovedReason());
+        }
+        else
+        {
+            GRAPHICS_EXCEPTION(hr);
+        }
+    }
 }
 
 auto Graphics::ClearBuffer(float r, float g, float b) noexcept -> void
@@ -57,6 +117,7 @@ auto Graphics::ClearBuffer(float r, float g, float b) noexcept -> void
     const std::array color = {r, g, b, 1.0f};
 
     device_context->ClearRenderTargetView(render_target_view.Get(), color.data());
+    device_context->ClearDepthStencilView( pDSV.Get(),D3D11_CLEAR_DEPTH,1.0f,0u );
 }
 
 auto Graphics::Draw(float a) -> void
@@ -143,8 +204,8 @@ auto Graphics::Draw(float a) -> void
     };
 
     const ConstantBuffer constant_buffer = {
-        {{{0.75f*cos(a), sin(a), 0.0f, 0.0f},
-          {0.75f*-sin(a), cos(a), 0.0f, 0.0f},
+        {{{0.75f * cos(a), sin(a), 0.0f, 0.0f},
+          {0.75f * -sin(a), cos(a), 0.0f, 0.0f},
           {0.0f, 0.0f, 1.0f, 0.0f},
           {0.0f, 0.0f, 0.0f, 1.0f}}}};
 
@@ -226,4 +287,19 @@ auto Graphics::Draw(float a) -> void
     // device_context->Draw(vertices.size(), 0U);
 
     device_context->DrawIndexed(std::size(indexs), 0U, 0U);
+}
+
+auto Graphics::DrawIndexed(UINT count) -> void
+{
+    device_context->DrawIndexed(count, 0u, 0u);
+}
+
+void Graphics::SetProjection(DirectX::FXMMATRIX proj) noexcept
+{
+    projection = proj;
+}
+
+DirectX::XMMATRIX Graphics::GetProjection() const noexcept
+{
+    return projection;
 }

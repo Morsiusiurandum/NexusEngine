@@ -21,7 +21,7 @@ set(HLSL_SHADER_FILES VertexShader.hlsl PixelShader.hlsl)
 
 set_source_files_properties(VertexShader.hlsl PROPERTIES ShaderType "vs")
 set_source_files_properties(PixelShader.hlsl PROPERTIES ShaderType "ps")
-set_source_files_properties(${HLSL_SHADER_FILES} PROPERTIES ShaderModel "4_0_level_9_3")
+set_source_files_properties(${HLSL_SHADER_FILES} PROPERTIES ShaderModel "4_0")
 
 foreach(FILE ${HLSL_SHADER_FILES})
     get_filename_component(FILE_WE ${FILE} NAME_WE)
