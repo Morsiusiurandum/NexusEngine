@@ -5,7 +5,7 @@
 #include <memory>
 
 App::App()
-    : window(800, 600, CHAR2LPCWSTR("Start Window")), timer()
+    : window(800, 600, CHAR2LPCWSTR("Start Window"))
 {
     class Factory
     {
@@ -14,7 +14,7 @@ App::App()
             : gfx(gfx)
         {
         }
-        std::unique_ptr<DrawableBase> operator()()
+        auto operator()() -> std::unique_ptr<DrawableBase>
         {
             const DirectX::XMFLOAT3 mat = {cdist(rng), cdist(rng), cdist(rng)};
             return std::make_unique<Box>(
@@ -62,9 +62,9 @@ auto App::Awake() -> int
 auto App::Update() -> void
 {
 
-    auto dt = timer.Mark();
+    const auto dt = timer.Mark();
     window.GetGraphics().ClearBuffer(0.07f, 0.0f, 0.12f);
-    for (auto &d: drawables)
+    for (const auto &d: drawables)
     {
         d->Update(window.keyboard.KeyIsPressed(VK_SPACE) ? 0.0f : dt);
         d->Draw(window.GetGraphics());

@@ -7,21 +7,19 @@
 class App
 {
 public:
-    App();
+     App();
     ~App();
 
     auto Awake() -> int;
 
 private:
-    auto Update() -> void;
+    void Update();
 
-private:
-    Window window;
-    Timer  timer;
-
-    std::vector<std::unique_ptr<class DrawableBase>> drawables;
-    float                                            speed_factor = 1.0f;
-    static constexpr size_t                          nDrawables   = 80;
+    Window                                     window;
+    Timer                                      timer{};
+    std::vector<std::unique_ptr<DrawableBase>> drawables;
+    float                                      speed_factor = 13.0f;
+    static constexpr size_t                    nDrawables   = 80;
 };
 
 #endif //APP_H

@@ -33,7 +33,7 @@ private:
 
         ~WindowClass();
 
-        static constexpr const CHAR *wndClassName = "Nexus Direct3D Engine";
+        static constexpr auto wndClassName = "Nexus Direct3D Engine";
 
         static WindowClass wndClass;
 
@@ -41,15 +41,19 @@ private:
     };
 
 public:
+    /**
+     * @brief Initialization window
+     * @param width window width
+     * @param height window height
+     * @param name window name
+     */
     Window(int width, int height, const WCHAR *name);
-
-    ~Window();
-
     Window(const Window &) = delete;
 
     auto operator=(const Window &) -> Window & = delete;
+    ~    Window();
 
-    [[nodiscard]] auto ProcessMessage() noexcept -> std::optional<int>;
+    [[nodiscard]] static auto ProcessMessage() noexcept -> std::optional<int>;
 
     [[nodiscard]] auto GetGraphics() const -> Graphics &;
 
@@ -62,8 +66,7 @@ private:
 
 public:
     Keyboard keyboard;
-
-    Mouse mouse;
+    Mouse    mouse;
 
 private:
     int width{}, height{};

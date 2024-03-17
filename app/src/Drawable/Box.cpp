@@ -24,7 +24,7 @@ Box::Box(Graphics                              &gfx,
         };
 
         auto model = Cube::MakeIndependent<Vertex>();
-      //  model.SetNormalsIndependentFlat();
+       model.SetNormalsIndependentFlat();
 
         AddStaticBind(std::make_unique<VertexBuffer>(gfx, model.vertex));
 

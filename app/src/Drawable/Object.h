@@ -13,18 +13,18 @@ public:
            std::uniform_real_distribution<float> &odist,
            std::uniform_real_distribution<float> &rdist)
         : r(rdist(rng)),
+          theta(adist(rng)),
+          phi(adist(rng)),
+          chi(adist(rng)),
           droll(ddist(rng)),
           dpitch(ddist(rng)),
           dyaw(ddist(rng)),
-          dphi(odist(rng)),
           dtheta(odist(rng)),
-          dchi(odist(rng)),
-          chi(adist(rng)),
-          theta(adist(rng)),
-          phi(adist(rng))
+          dphi(odist(rng)),
+          dchi(odist(rng))
     {
     }
-    void Update(float dt) noexcept
+    void Update(const float dt) noexcept override
     {
         roll += droll * dt;
         pitch += dpitch * dt;
@@ -33,7 +33,8 @@ public:
         phi += dphi * dt;
         chi += dchi * dt;
     }
-    DirectX::XMMATRIX GetTransformXM() const noexcept
+
+    [[nodiscard]] DirectX::XMMATRIX GetTransformXM() const noexcept override
     {
         namespace dx = DirectX;
         return dx::XMMatrixRotationRollPitchYaw(pitch, yaw, roll) * dx::XMMatrixTranslation(r, 0.0f, 0.0f) * dx::XMMatrixRotationRollPitchYaw(theta, phi, chi);

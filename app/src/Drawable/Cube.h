@@ -3,7 +3,6 @@
 
 #include "IndexedTriangle.h"
 #include <DirectXMath.h>
-#include <initializer_list>
 
 class Cube
 {
@@ -115,7 +114,7 @@ public:
         vertices[17].pos = {+side, -side, -side}; // 17
         vertices[18].pos = {-side, -side, +side}; // 18
         vertices[19].pos = {+side, -side, +side}; // 19
-        
+
         vertices[20].pos = {-side, +side, -side}; // 20 top
         vertices[21].pos = {+side, +side, -side}; // 21
         vertices[22].pos = {-side, +side, +side}; // 22

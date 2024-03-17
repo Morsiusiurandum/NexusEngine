@@ -3,7 +3,7 @@
 
 #include "Object.h"
 
-class Box : public Object<Box>
+class Box final : public Object<Box>
 {
 public:
     Box(Graphics                              &gfx,
@@ -15,7 +15,7 @@ public:
         std::uniform_real_distribution<float> &bdist,
         DirectX::XMFLOAT3                      material);
 
-    auto GetTransformXM() const noexcept -> DirectX::XMMATRIX override;
+    [[nodiscard]] auto GetTransformXM() const noexcept -> DirectX::XMMATRIX override;
 
 private:
     // model transform

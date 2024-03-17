@@ -23,32 +23,31 @@ class Graphics
 
 public:
     /**
-     * \brief Default constructor
-     * \param window current window pointer
+     * @brief Default constructor
+     * @param window current window pointer
      */
     explicit Graphics(HWND window);
+    explicit Graphics(const GraphicsException &) = delete;
 
-    Graphics(const GraphicsException &) = delete;
-
-    ~Graphics() = default;
-
+    ~    Graphics()                                = default;
     auto operator=(const Graphics &) -> Graphics & = delete;
 
-    auto EndFrame() -> void;
+    /**
+     * \brief End current frame
+     */
+    void EndFrame();
 
-    auto ClearBuffer(float r, float g, float b) noexcept -> void;
+    void ClearBuffer(float r, float g, float b) noexcept;
 
-    auto Draw(float a) -> void;
+    void DrawIndexed(UINT count);
 
-    auto DrawIndexed(UINT count) -> void;
+    void SetProjection(DirectX::FXMMATRIX proj) noexcept;
 
-    void              SetProjection(DirectX::FXMMATRIX proj) noexcept;
-    DirectX::XMMATRIX GetProjection() const noexcept;
+    [[nodiscard]] auto GetProjection() const noexcept -> DirectX::XMMATRIX;
 
 private:
-    DirectX::XMMATRIX projection;
+    DirectX::XMMATRIX projection{};
 
-private:
     Microsoft::WRL::ComPtr<ID3D11Device>           device;
     Microsoft::WRL::ComPtr<IDXGISwapChain>         swap_chain;
     Microsoft::WRL::ComPtr<ID3D11DeviceContext>    device_context;

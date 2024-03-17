@@ -39,7 +39,7 @@ protected:
     }
 
 private:
-    [[nodiscard]] auto GetStaticBinds() const noexcept -> const std::vector<std::unique_ptr<Bindable>> &
+    [[nodiscard]] auto GetStaticBinds() const noexcept -> const std::vector<std::unique_ptr<Bindable>> & override
     {
         return staticBinds;
     }

@@ -67,7 +67,7 @@ public:
 
         return {std::move(vertices), std::move(indices)};
     }
-    
+
     template<class V>
     static auto Make() -> IndexedTriangle<V>
     {

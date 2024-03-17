@@ -2,7 +2,6 @@
 #define INDEXED_TRIANGLE_H
 
 #include <vector>
-
 #include <DirectXMath.h>
 
 template<class T>
@@ -29,7 +28,7 @@ public:
         }
     }
     // asserts face-independent vertices w/ normals cleared to zero
-    void SetNormalsIndependentFlat() //noexcept( !IS_DEBUG)
+    void SetNormalsIndependentFlat() noexcept( !IS_DEBUG)
     {
         using namespace DirectX;
 

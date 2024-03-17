@@ -47,7 +47,7 @@ Window::Window(const int width, const int height, const WCHAR *name)
     window_rect.top              = 100;
     window_rect.bottom           = height + window_rect.top;
     constexpr DWORD window_style = WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU;
-    if ((AdjustWindowRect(&window_rect, window_style, FALSE)) == 0)
+    if (AdjustWindowRect(&window_rect, window_style, FALSE) == 0)
     {
         throw NEXUS_LAST_EXCEPT();
     }
