@@ -1,12 +1,12 @@
 #ifndef NEXUS_WINDOW_H
 #define NEXUS_WINDOW_H
 
-#include "../Exception/WindowException.h"
-#include "../IO/Keyboard.h"
-#include "../IO/Mouse.h"
-#include "NexusMacro.h"
-#include <memory.h>
+#include <memory>
 
+#include "NexusIO.h"
+#include "NexusMacro.h"
+
+#include "../Exception/WindowException.h"
 #include "../Graphics.h"
 #include "../Utils/Timer.h"
 
@@ -51,15 +51,14 @@ public:
 
     [[nodiscard]] auto ProcessMessage() noexcept -> std::optional<int>;
 
-    [[nodiscard]] auto GetGraphics() const -> Graphics& ;
+    [[nodiscard]] auto GetGraphics() const -> Graphics &;
 
 private:
     [[nodiscard]] auto HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) -> LRESULT;
-    
+
     static auto CALLBACK HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) -> LRESULT;
 
     static auto CALLBACK HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) -> LRESULT;
-
 
 public:
     Keyboard keyboard;
@@ -73,6 +72,5 @@ private:
 
     std::unique_ptr<Graphics> graphics_ptr;
 };
-
 
 #endif //NEXUS_WINDOW_H

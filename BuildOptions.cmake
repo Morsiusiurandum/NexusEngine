@@ -10,3 +10,5 @@ set(ENABLE_NOTIFICATION_ICON true)
 # Set to false to allow multiple instances of the application to run
 # simultaneously.  Otherwise an error will display when trying to run more than one.
 set(SINGLE_INSTANCE_ONLY true)
+
+set(CMAKE_MINIMUM_REQUIRED_VERSION  3.24)

@@ -1,6 +1,6 @@
 #include "TransformCbuf.h"
 
-TransformCbuf::TransformCbuf(Graphics &gfx, const Drawable &parent)
+TransformCbuf::TransformCbuf(Graphics &gfx, const DrawableBase &parent)
     : vcbuf(gfx),
       parent(parent)
 {

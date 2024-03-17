@@ -1,7 +1,6 @@
 #ifndef MACRO_H
 #define MACRO_H
 
-#include <vector>
 #include <windows.h>
 
 #include <minwindef.h>

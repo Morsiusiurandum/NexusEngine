@@ -1,8 +1,8 @@
 #ifndef GRAPHICS_H
 #define GRAPHICS_H
 
+#include "NexusMacro.h"
 #include <DirectXMath.h>
-#include <NexusMacro.h>
 #include <array>
 #include <d3d11.h>
 #include <d3dcompiler.h>

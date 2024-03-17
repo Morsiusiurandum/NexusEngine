@@ -1,18 +1,18 @@
 #ifndef TRANSFORM_CBUF_H
 #define TRANSFORM_CBUF_H
 
+#include "../Drawable/DrawableBase.h"
 #include "ConstantBuffer.h"
-#include "../Drawable/Drawable.h"
 #include <DirectXMath.h>
 
 class TransformCbuf : public Bindable
 {
 public:
-    TransformCbuf(Graphics &gfx, const Drawable &parent);
+    TransformCbuf(Graphics &gfx, const DrawableBase &parent);
     void Bind(Graphics &gfx) noexcept override;
 
 private:
     VertexConstantBuffer<DirectX::XMMATRIX> vcbuf;
-    const Drawable                         &parent;
+    const DrawableBase                     &parent;
 };
 #endif //TRANSFORM_CBUF_H
