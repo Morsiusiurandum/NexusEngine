@@ -1,6 +1,8 @@
 #include "App.h"
 #include "Drawable/Box.h"
 #include "Drawable/DrawableBase.h"
+#include "Drawable/Plane.h"
+#include "Drawable/Pyramid.h"
 #include "NexusMath.h"
 #include <memory>
 
@@ -17,15 +19,39 @@ App::App()
         auto operator()() -> std::unique_ptr<DrawableBase>
         {
             const DirectX::XMFLOAT3 mat = {cdist(rng), cdist(rng), cdist(rng)};
-            return std::make_unique<Box>(
-                gfx,
-                rng,
-                adist,
-                ddist,
-                odist,
-                rdist,
-                bdist,
-                mat);
+
+            switch (typedist(rng))
+            {
+            case 0:
+                return std::make_unique<Box>(
+                    gfx,
+                    rng,
+                    adist,
+                    ddist,
+                    odist,
+                    rdist,
+                    bdist,
+                    mat);
+            case 1:
+                return std::make_unique<Box>(
+                    gfx,
+                    rng,
+                    adist,
+                    ddist,
+                    odist,
+                    rdist,
+                    bdist,
+                    mat);
+            case 2:
+                return std::make_unique<Pyramid>(
+                    gfx,
+                    rng,
+                    adist,
+                    ddist,
+                    odist,
+                    rdist
+                    );
+            }
         }
 
     private:
@@ -37,6 +63,8 @@ App::App()
         std::uniform_real_distribution<float> rdist{6.0f, 20.0f};
         std::uniform_real_distribution<float> bdist{0.4f, 3.0f};
         std::uniform_real_distribution<float> cdist{0.0f, 1.0f};
+
+        std::uniform_int_distribution<int> typedist{0, 2};
     };
 
     drawables.reserve(nDrawables);
@@ -51,7 +79,7 @@ auto App::Awake() -> int
 {
     while (true)
     {
-        if (const auto e_code = window.ProcessMessage())
+        if (const auto e_code = Window::ProcessMessage())
         {
             return *e_code;
         }
