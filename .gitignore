@@ -1,8 +1,5 @@
-.vs
-.vscode
-.idea
-cmake-build-*
-out
-build
-WinApp.aps
-CMakeSettings.json
+.vs/
+.vscode/
+.idea/
+bin/
+build/

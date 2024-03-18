@@ -28,11 +28,11 @@ Box::Box(Graphics                              &gfx,
 
         AddStaticBind(std::make_unique<VertexBuffer>(gfx, model.vertex));
 
-        auto pvs   = std::make_unique<VertexShader>(gfx, L"../VertexShader.cso");
+        auto pvs   = std::make_unique<VertexShader>(gfx, L"shader/VertexShader.cso");
         auto pvsbc = pvs->GetBytecode();
         AddStaticBind(std::move(pvs));
 
-        AddStaticBind(std::make_unique<PixelShader>(gfx, L"../PixelShader.cso"));
+        AddStaticBind(std::make_unique<PixelShader>(gfx, L"shader/PixelShader.cso"));
 
         AddStaticIndexBuffer(std::make_unique<IndexBuffer>(gfx, model.index));
 
