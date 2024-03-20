@@ -1,4 +1,4 @@
-project(shader)
+# project(shader)
 # Build HLSL shaders
 add_custom_target(shaders)
 
@@ -12,7 +12,7 @@ set_source_files_properties(${HLSL_VERTEX_SHADER_FILES} PROPERTIES ShaderType "v
 set_source_files_properties(${HLSL_PIXEL_SHADER_FILES} PROPERTIES ShaderType "ps")
 
 set(HLSL_SHADER_FILES ${HLSL_VERTEX_SHADER_FILES} ${HLSL_PIXEL_SHADER_FILES})
-set_source_files_properties(${HLSL_SHADER_FILES} PROPERTIES ShaderModel "4_0")
+set_source_files_properties(${HLSL_SHADER_FILES} PROPERTIES ShaderModel "5_0")
 
 set(SHADER_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${CMAKE_BUILD_TYPE}/shader)
 file(MAKE_DIRECTORY ${SHADER_DIRECTORY})

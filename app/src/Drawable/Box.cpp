@@ -98,6 +98,5 @@ Box::Box(Graphics                              &gfx,
 
 auto Box::GetTransformXM() const noexcept -> DirectX::XMMATRIX
 {
-    namespace dx = DirectX;
-    return dx::XMLoadFloat3x3(&mt) * Object::GetTransformXM();
+      return DirectX::XMLoadFloat3x3(&mt) * Object::GetTransformXM();
 }

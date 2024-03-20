@@ -1,4 +1,4 @@
-project(${WINDOWS_APP_NAME})
+enable_language("RC")
 
 set(CMAKE_CXX_STANDARD 23)
 
@@ -12,16 +12,17 @@ add_compile_definitions(_UNICODE UNICODE)
 
 include_directories(include)
 
-aux_source_directory(resources resources)
-file(GLOB_RECURSE src src/*.cpp src/*.h)
+set(WIN32_RESOURCES resources/WindowsProject.rc)
 
-add_executable(
-        ${PROJECT_NAME}
-        ${resources}
-        ${src})
+file(GLOB_RECURSE resources resources/**)
+file(GLOB_RECURSE src src/** include/**)
 
-set(LIBS d3d11 D3DCompiler)
-target_link_libraries(${PROJECT_NAME} ${LIBS})
+add_executable(${WINDOWS_APP_NAME} WIN32 ${resources} ${src})
 
-set_target_properties(${PROJECT_NAME} PROPERTIES WIN32_EXECUTABLE TRUE)
-target_link_options(${PROJECT_NAME} PRIVATE "/SUBSYSTEM:WINDOWS")
+set(LIBS d3d11 D3DCompiler Microsoft::DirectXTex)
+
+# link DirectX libs
+target_link_libraries(${WINDOWS_APP_NAME} PRIVATE ${LIBS})
+
+# set_target_properties(${WINDOWS_APP_NAME} PROPERTIES WIN32_EXECUTABLE TRUE)
+# target_link_options(${WINDOWS_APP_NAME} PRIVATE "/SUBSYSTEM:WINDOWS")

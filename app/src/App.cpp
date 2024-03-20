@@ -1,6 +1,7 @@
 #include "App.h"
 #include "Drawable/Box.h"
 #include "Drawable/DrawableBase.h"
+#include "Drawable/Drawing.h"
 #include "Drawable/Plane.h"
 #include "Drawable/Pyramid.h"
 #include "NexusMath.h"
@@ -23,15 +24,9 @@ App::App()
             switch (typedist(rng))
             {
             case 0:
-                return std::make_unique<Box>(
-                    gfx,
-                    rng,
-                    adist,
-                    ddist,
-                    odist,
-                    rdist,
-                    bdist,
-                    mat);
+                return std::make_unique<Drawing>(
+                    gfx, rng, adist, ddist,
+                    odist, rdist);
             case 1:
                 return std::make_unique<Box>(
                     gfx,
@@ -49,8 +44,7 @@ App::App()
                     adist,
                     ddist,
                     odist,
-                    rdist
-                    );
+                    rdist);
             }
         }
 

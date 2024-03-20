@@ -9,7 +9,8 @@ public:
     WindowException(int line, const char *file, HRESULT hResult) noexcept;
 
     auto what() const noexcept -> const char * override;
-
+    
+    static auto TranslateErrorCode(HRESULT hResult) noexcept -> std::string;
 private:
     auto GetType() const noexcept -> const char * override;
 
@@ -17,8 +18,6 @@ private:
 
     auto GetErrorString() const noexcept -> std::string;
     
-    static auto TranslateErrorCode(HRESULT hResult) noexcept -> std::string;
-
 private:
     HRESULT hr;
 };

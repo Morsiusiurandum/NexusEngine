@@ -5,7 +5,7 @@ IndexBuffer::IndexBuffer(Graphics &graphics, const std::vector<unsigned short> &
     : count(index.size())
 {
     D3D11_BUFFER_DESC buffer_desc   = {};
-    buffer_desc.BindFlags           = D3D11_BIND_VERTEX_BUFFER;
+    buffer_desc.BindFlags           = D3D11_BIND_INDEX_BUFFER;
     buffer_desc.Usage               = D3D11_USAGE_DEFAULT;
     buffer_desc.CPUAccessFlags      = 0U;
     buffer_desc.MiscFlags           = 0U;

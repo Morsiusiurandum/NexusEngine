@@ -3,7 +3,6 @@
 
 auto CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd) -> int
 {
-
     // start the program and catch the exception
     try
     {
