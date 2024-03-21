@@ -5,7 +5,11 @@
 #include "Drawable/Plane.h"
 #include "Drawable/Pyramid.h"
 #include "NexusMath.h"
+#include "imgui_impl_dx11.h"
+#include "imgui_impl_win32.h"
 #include <memory>
+#include <random>
+#include <vector>
 
 App::App()
     : window(800, 600, CHAR2LPCWSTR("Start Window"))
@@ -24,27 +28,11 @@ App::App()
             switch (typedist(rng))
             {
             case 0:
-                return std::make_unique<Drawing>(
-                    gfx, rng, adist, ddist,
-                    odist, rdist);
+                return std::make_unique<Drawing>(gfx, rng, adist, ddist, odist, rdist);
             case 1:
-                return std::make_unique<Box>(
-                    gfx,
-                    rng,
-                    adist,
-                    ddist,
-                    odist,
-                    rdist,
-                    bdist,
-                    mat);
+                return std::make_unique<Box>(gfx, rng, adist, ddist, odist, rdist, bdist, mat);
             case 2:
-                return std::make_unique<Pyramid>(
-                    gfx,
-                    rng,
-                    adist,
-                    ddist,
-                    odist,
-                    rdist);
+                return std::make_unique<Pyramid>(gfx, rng, adist, ddist, odist, rdist);
             }
         }
 
@@ -91,6 +79,19 @@ auto App::Update() -> void
         d->Update(window.keyboard.KeyIsPressed(VK_SPACE) ? 0.0f : dt);
         d->Draw(window.GetGraphics());
     }
+
+    ImGui_ImplDX11_NewFrame();
+    ImGui_ImplWin32_NewFrame();
+    ImGui::NewFrame();
+
+    static bool show_demo_window = true;
+    if (show_demo_window)
+    {
+        ImGui::ShowDemoWindow(&show_demo_window);
+    }
+    ImGui::Render();
+    ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+
     window.GetGraphics().EndFrame();
 
     if (window.keyboard.KeyIsPressed(VK_MENU))

@@ -2,6 +2,7 @@
 #define OBJECT_H
 
 #include "Drawable.h"
+#include <random>
 
 template<class T>
 class Object : public Drawable<T>

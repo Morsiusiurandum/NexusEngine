@@ -19,7 +19,7 @@ file(GLOB_RECURSE src src/** include/**)
 
 add_executable(${WINDOWS_APP_NAME} WIN32 ${resources} ${src})
 
-set(LIBS d3d11 D3DCompiler Microsoft::DirectXTex)
+set(LIBS d3d11 D3DCompiler)
 
 # link DirectX libs
 target_link_libraries(${WINDOWS_APP_NAME} PRIVATE ${LIBS})

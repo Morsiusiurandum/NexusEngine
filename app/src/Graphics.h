@@ -1,17 +1,11 @@
 #ifndef GRAPHICS_H
 #define GRAPHICS_H
 
+#include "Exception/GraphicsException.h"
 #include "NexusMacro.h"
 #include <DirectXMath.h>
-#include <array>
 #include <d3d11.h>
-#include <d3dcompiler.h>
-#include <memory>
-#include <random>
-#include <vector>
 #include <wrl.h>
-
-#include "Exception/GraphicsException.h"
 
 #define GRAPHICS_EXCEPTION(hr)  \
     if (hr != SEVERITY_SUCCESS) \
@@ -27,9 +21,9 @@ public:
      * @param window current window pointer
      */
     explicit Graphics(HWND window);
-    explicit Graphics(const GraphicsException &) = delete;
+    ~Graphics();
 
-    ~    Graphics()                                = default;
+    explicit Graphics(const GraphicsException &)   = delete;
     auto operator=(const Graphics &) -> Graphics & = delete;
 
     /**

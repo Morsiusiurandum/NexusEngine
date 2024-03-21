@@ -1,5 +1,6 @@
 #include "VertexShader.h"
-
+#include <d3dcompiler.h>
+ 
 VertexShader::VertexShader(Graphics &gfx, const std::wstring &path)
 {
     GRAPHICS_EXCEPTION(D3DReadFileToBlob(path.c_str(), &blob_com_ptr));

@@ -2,18 +2,22 @@
 #define APP_H
 
 #include "Drawable/DrawableBase.h"
+#include "ImGuiManager.h"
 #include "Window/Window.h"
 
 class App
 {
 public:
-     App();
+    App();
     ~App();
 
     auto Awake() -> int;
 
 private:
     void Update();
+
+private:
+    ImguiManager imGui_manager;
 
     Window                                     window;
     Timer                                      timer{};

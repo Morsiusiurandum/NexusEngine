@@ -1,4 +1,6 @@
 #include "PixelShader.h"
+#include <d3dcompiler.h>
+ 
 
 PixelShader::PixelShader(Graphics &gfx, const std::wstring &path)
 {

@@ -2,6 +2,7 @@
 #define PYRAMID_H
 
 #include "Drawable.h"
+#include <random>
 
 class Pyramid : public Drawable<Pyramid>
 {
@@ -12,7 +13,7 @@ public:
             std::uniform_real_distribution<float> &odist,
             std::uniform_real_distribution<float> &rdist);
     void              Update(float dt) noexcept override;
-    DirectX::XMMATRIX GetTransformXM() const noexcept override;
+    auto GetTransformXM() const noexcept -> DirectX::XMMATRIX override;
 
 private:
     // positional

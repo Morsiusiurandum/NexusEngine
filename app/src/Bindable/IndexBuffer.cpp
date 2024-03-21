@@ -1,5 +1,4 @@
 #include "IndexBuffer.h"
-#include <vector>
 
 IndexBuffer::IndexBuffer(Graphics &graphics, const std::vector<unsigned short> &index)
     : count(index.size())

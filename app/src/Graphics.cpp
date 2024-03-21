@@ -1,7 +1,9 @@
 #include "Graphics.h"
-
+#include "imgui_impl_dx11.h"
 #include <DirectXMath.h>
 #include <d3dcompiler.h>
+#include <array>
+#include <d3d11.h>
 
 Graphics::Graphics(HWND window)
 {
@@ -78,7 +80,7 @@ Graphics::Graphics(HWND window)
     descDSV.Texture2D.MipSlice            = 0u;
     (device->CreateDepthStencilView(pDepthStencil.Get(), &descDSV, &pDSV));
 
-    // bind depth stensil view to OM
+    // bind depth stencil view to OM
     device_context->OMSetRenderTargets(1u, render_target_view.GetAddressOf(), pDSV.Get());
 
     // view port
@@ -90,6 +92,13 @@ Graphics::Graphics(HWND window)
     viewport.TopLeftX = 0;
     viewport.TopLeftY = 0;
     device_context->RSSetViewports(1U, &viewport);
+
+    ImGui_ImplDX11_Init(device.Get(), device_context.Get());
+}
+
+Graphics::~Graphics()
+{
+    ImGui_ImplDX11_Shutdown();
 }
 
 void Graphics::EndFrame()

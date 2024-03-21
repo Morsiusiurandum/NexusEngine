@@ -1,4 +1,7 @@
 #include "Window.h"
+#include "imgui_impl_win32.h"
+
+extern IMGUI_IMPL_API auto ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) -> LRESULT;
 
 Window::WindowClass Window::WindowClass::wndClass;
 
@@ -72,19 +75,21 @@ Window::Window(const int width, const int height, const WCHAR *name)
     }
 
     ShowWindow(h_wnd, SW_SHOWDEFAULT);
+    ImGui_ImplWin32_Init(h_wnd);
 
     graphics_ptr = std::make_unique<Graphics>(h_wnd);
 }
 
 Window::~Window()
 {
+    ImGui_ImplWin32_Shutdown();
     DestroyWindow(h_wnd);
 }
 
 auto Window::ProcessMessage() noexcept -> std::optional<int>
 {
     MSG msg;
-    
+
     // while queue has messages, remove and dispatch them (but do not block on empty queue)
     while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
     {
@@ -136,6 +141,7 @@ auto Window::HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) -
 
 auto Window::HandleMsg(HWND hWnd, const UINT msg, const WPARAM wParam, LPARAM lParam) -> LRESULT
 {
+    if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam)) return true;
     //Keyboard Messages
     switch (msg)
     {

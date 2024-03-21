@@ -2,6 +2,7 @@
 #define VERTEX_BUFFER_H
 
 #include "Bindable.h"
+#include <vector>
 
 class VertexBuffer : public Bindable
 {

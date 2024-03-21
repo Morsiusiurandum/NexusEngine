@@ -1,8 +1,8 @@
 #ifndef  INPUT_LAYOUT_H 
 #define INPUT_LAYOUT_H
 
-
 #include "Bindable.h"
+#include <vector>
 
 class InputLayout : public Bindable
 {

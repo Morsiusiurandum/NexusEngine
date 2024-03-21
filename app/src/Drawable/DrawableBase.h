@@ -3,6 +3,7 @@
 
 #include "../Graphics.h"
 #include <DirectXMath.h>
+#include <vector>
 
 class DrawableBase
 {

@@ -7,6 +7,7 @@ project(${MAIN_PROJECT_NAME} LANGUAGES CXX)
 
 # load package
 find_package(directxtex CONFIG REQUIRED)
+find_package(imgui CONFIG REQUIRED)
 
 # compile libs
 add_subdirectory(utils)
@@ -21,6 +22,7 @@ add_subdirectory(app)
 add_dependencies(${MAIN_PROJECT_NAME} utils)
 add_dependencies(${MAIN_PROJECT_NAME} shaders)
 
+target_link_libraries(${MAIN_PROJECT_NAME} PRIVATE imgui::imgui Microsoft::DirectXTex)
 target_link_libraries(${MAIN_PROJECT_NAME} PRIVATE utils)
 
 # define macros
