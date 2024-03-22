@@ -1,9 +1,10 @@
 #include "Graphics.h"
 #include "imgui_impl_dx11.h"
+#include "imgui_impl_win32.h"
 #include <DirectXMath.h>
-#include <d3dcompiler.h>
 #include <array>
 #include <d3d11.h>
+#include <d3dcompiler.h>
 
 Graphics::Graphics(HWND window)
 {
@@ -103,6 +104,10 @@ Graphics::~Graphics()
 
 void Graphics::EndFrame()
 {
+    
+    ImGui::Render();
+    ImGui_ImplDX11_RenderDrawData( ImGui::GetDrawData() );
+    
     if (HRESULT hr; FAILED(hr = swap_chain->Present(1U, 0U)))
     {
         if (hr == DXGI_ERROR_DEVICE_REMOVED)
@@ -118,6 +123,10 @@ void Graphics::EndFrame()
 
 void Graphics::ClearBuffer(float r, float g, float b) noexcept
 {
+    ImGui_ImplDX11_NewFrame();
+    ImGui_ImplWin32_NewFrame();
+    ImGui::NewFrame();
+    
     const std::array color = {r, g, b, 1.0f};
 
     device_context->ClearRenderTargetView(render_target_view.Get(), color.data());
@@ -137,4 +146,14 @@ void Graphics::SetProjection(DirectX::FXMMATRIX proj) noexcept
 auto Graphics::GetProjection() const noexcept -> DirectX::XMMATRIX
 {
     return projection;
+}
+
+void Graphics::SetCamera(DirectX::FXMMATRIX cam) noexcept
+{
+    camera = cam;
+}
+
+DirectX::XMMATRIX Graphics::GetCamera() const noexcept
+{
+    return camera;
 }
