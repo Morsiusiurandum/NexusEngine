@@ -1,8 +1,6 @@
 #ifndef BINDABLE_BASE_H
 #define BINDABLE_BASE_H
 
-#include "../Bindable/Sampler.h"
-#include "../Bindable/Texture.h"
 #include "../src/Bindable/ConstantBuffer.h"
 #include "../src/Bindable/IndexBuffer.h"
 #include "../src/Bindable/InputLayout.h"

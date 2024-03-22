@@ -2,6 +2,8 @@
 #include "../../Surface.h"
 #include "../Mesh/Plane.h"
 #include "BindableBase.h"
+#include "../../Bindable/Sampler.h"
+#include "../../Bindable/Texture.h"
 
 Drawing::Drawing(
     Graphics                              &graphics,

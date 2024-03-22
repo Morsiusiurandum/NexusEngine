@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <ProjectGuid>{14DB10A5-79A2-49C6-91AC-B070921CDF32}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <WarningLevel>Level3</WarningLevel>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>F:\Morsiusiurandum\Nexus\app\include</AdditionalIncludeDirectories>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="app\src\App.cpp" />
+    <ClCompile Include="app\src\bindable\Bindable.cpp" />
+    <ClCompile Include="app\src\bindable\IndexBuffer.cpp" />
+    <ClCompile Include="app\src\bindable\InputLayout.cpp" />
+    <ClCompile Include="app\src\bindable\PixelShader.cpp" />
+    <ClCompile Include="app\src\bindable\Sampler.cpp" />
+    <ClCompile Include="app\src\bindable\Texture.cpp" />
+    <ClCompile Include="app\src\bindable\Topology.cpp" />
+    <ClCompile Include="app\src\bindable\TransformCbuf.cpp" />
+    <ClCompile Include="app\src\bindable\VertexBuffer.cpp" />
+    <ClCompile Include="app\src\bindable\VertexShader.cpp" />
+    <ClCompile Include="app\src\Camera.cpp" />
+    <ClCompile Include="app\src\drawable\DrawableBase.cpp" />
+    <ClCompile Include="app\src\drawable\object\Box.cpp" />
+    <ClCompile Include="app\src\drawable\object\Drawing.cpp" />
+    <ClCompile Include="app\src\drawable\object\Pyramid.cpp" />
+    <ClCompile Include="app\src\exception\Exception.cpp" />
+    <ClCompile Include="app\src\exception\GraphicsException.cpp" />
+    <ClCompile Include="app\src\exception\WindowException.cpp" />
+    <ClCompile Include="app\src\Graphics.cpp" />
+    <ClCompile Include="app\src\ImGuiManager.cpp" />
+    <ClCompile Include="app\src\io\Keyboard.cpp" />
+    <ClCompile Include="app\src\io\Mouse.cpp" />
+    <ClCompile Include="app\src\Surface.cpp" />
+    <ClCompile Include="app\src\utils\Timer.cpp" />
+    <ClCompile Include="app\src\window\Window.cpp" />
+    <ClCompile Include="app\src\WinMain.cpp" />
+    <ClCompile Include="utils\Color.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="app\include\BindableBase.h" />
+    <ClInclude Include="app\include\NexusIO.h" />
+    <ClInclude Include="app\include\NexusMacro.h" />
+    <ClInclude Include="app\include\NexusMath.h" />
+    <ClInclude Include="app\resources\targetver.h" />
+    <ClInclude Include="app\src\App.h" />
+    <ClInclude Include="app\src\bindable\Bindable.h" />
+    <ClInclude Include="app\src\bindable\ConstantBuffer.h" />
+    <ClInclude Include="app\src\bindable\IndexBuffer.h" />
+    <ClInclude Include="app\src\bindable\InputLayout.h" />
+    <ClInclude Include="app\src\bindable\PixelShader.h" />
+    <ClInclude Include="app\src\bindable\Sampler.h" />
+    <ClInclude Include="app\src\bindable\Texture.h" />
+    <ClInclude Include="app\src\bindable\Topology.h" />
+    <ClInclude Include="app\src\bindable\TransformCbuf.h" />
+    <ClInclude Include="app\src\bindable\VertexBuffer.h" />
+    <ClInclude Include="app\src\bindable\VertexShader.h" />
+    <ClInclude Include="app\src\Camera.h" />
+    <ClInclude Include="app\src\drawable\Drawable.h" />
+    <ClInclude Include="app\src\drawable\DrawableBase.h" />
+    <ClInclude Include="app\src\drawable\mesh\Cone.h" />
+    <ClInclude Include="app\src\drawable\mesh\Cube.h" />
+    <ClInclude Include="app\src\drawable\mesh\IndexedTriangle.h" />
+    <ClInclude Include="app\src\drawable\mesh\Plane.h" />
+    <ClInclude Include="app\src\drawable\mesh\Sphere.h" />
+    <ClInclude Include="app\src\drawable\object\Box.h" />
+    <ClInclude Include="app\src\drawable\object\Drawing.h" />
+    <ClInclude Include="app\src\drawable\object\Object.h" />
+    <ClInclude Include="app\src\drawable\object\Pyramid.h" />
+    <ClInclude Include="app\src\exception\Exception.h" />
+    <ClInclude Include="app\src\exception\GraphicsException.h" />
+    <ClInclude Include="app\src\exception\WindowException.h" />
+    <ClInclude Include="app\src\Graphics.h" />
+    <ClInclude Include="app\src\ImGuiManager.h" />
+    <ClInclude Include="app\src\io\Keyboard.h" />
+    <ClInclude Include="app\src\io\Mouse.h" />
+    <ClInclude Include="app\src\Surface.h" />
+    <ClInclude Include="app\src\utils\Timer.h" />
+    <ClInclude Include="app\src\window\Window.h" />
+    <ClInclude Include="utils\Color.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="app\resources\WindowsProject.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
