@@ -6,11 +6,13 @@
 #include <d3d11.h>
 #include <d3dcompiler.h>
 
-Graphics::Graphics(HWND window)
+Graphics::Graphics(HWND window, int width, int height)
+    : width(width),
+      height(height)
 {
     DXGI_SWAP_CHAIN_DESC swap_chain_desc               = {};
-    swap_chain_desc.BufferDesc.Width                   = 0;
-    swap_chain_desc.BufferDesc.Height                  = 0;
+    swap_chain_desc.BufferDesc.Width                   = width;
+    swap_chain_desc.BufferDesc.Height                  = height;
     swap_chain_desc.BufferDesc.Format                  = DXGI_FORMAT_B8G8R8A8_UNORM;
     swap_chain_desc.BufferDesc.RefreshRate.Numerator   = 0;
     swap_chain_desc.BufferDesc.RefreshRate.Denominator = 0;
@@ -63,8 +65,8 @@ Graphics::Graphics(HWND window)
     // create depth stencil texture
     Microsoft::WRL::ComPtr<ID3D11Texture2D> pDepthStencil;
     D3D11_TEXTURE2D_DESC                    descDepth = {};
-    descDepth.Width                                   = 800u;
-    descDepth.Height                                  = 600u;
+    descDepth.Width                                   = width;
+    descDepth.Height                                  = height;
     descDepth.MipLevels                               = 1u;
     descDepth.ArraySize                               = 1u;
     descDepth.Format                                  = DXGI_FORMAT_D32_FLOAT;
@@ -86,8 +88,8 @@ Graphics::Graphics(HWND window)
 
     // view port
     D3D11_VIEWPORT viewport;
-    viewport.Width    = 800;
-    viewport.Height   = 600;
+    viewport.Width    = static_cast<float>(width);
+    viewport.Height   = static_cast<float>(height);
     viewport.MinDepth = 0;
     viewport.MaxDepth = 1;
     viewport.TopLeftX = 0;
@@ -104,10 +106,10 @@ Graphics::~Graphics()
 
 void Graphics::EndFrame()
 {
-    
+
     ImGui::Render();
-    ImGui_ImplDX11_RenderDrawData( ImGui::GetDrawData() );
-    
+    ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+
     if (HRESULT hr; FAILED(hr = swap_chain->Present(1U, 0U)))
     {
         if (hr == DXGI_ERROR_DEVICE_REMOVED)
@@ -126,11 +128,11 @@ void Graphics::ClearBuffer(float r, float g, float b) noexcept
     ImGui_ImplDX11_NewFrame();
     ImGui_ImplWin32_NewFrame();
     ImGui::NewFrame();
-    
+
     const std::array color = {r, g, b, 1.0f};
 
     device_context->ClearRenderTargetView(render_target_view.Get(), color.data());
-    device_context->ClearDepthStencilView(pDSV.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0u);
+    device_context->ClearDepthStencilView(pDSV.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0U);
 }
 
 void Graphics::DrawIndexed(UINT count)

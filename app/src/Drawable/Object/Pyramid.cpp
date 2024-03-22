@@ -1,6 +1,6 @@
 #include "Pyramid.h"
+#include "../Mesh/Cone.h"
 #include "BindableBase.h"
-#include "Cone.h"
 
 Pyramid::Pyramid( Graphics& gfx,
                  std::mt19937& rng,
@@ -8,17 +8,8 @@ Pyramid::Pyramid( Graphics& gfx,
                  std::uniform_real_distribution<float>& ddist,
                  std::uniform_real_distribution<float>& odist,
                  std::uniform_real_distribution<float>& rdist )
-    :
-      r( rdist( rng ) ),
-      droll( ddist( rng ) ),
-      dpitch( ddist( rng ) ),
-      dyaw( ddist( rng ) ),
-      dphi( odist( rng ) ),
-      dtheta( odist( rng ) ),
-      dchi( odist( rng ) ),
-      chi( adist( rng ) ),
-      theta( adist( rng ) ),
-      phi( adist( rng ) )
+    : Object(gfx, rng, adist, ddist, odist, rdist)
+       
 {
     namespace dx = DirectX;
 
@@ -73,20 +64,9 @@ Pyramid::Pyramid( Graphics& gfx,
     AddBind( std::make_unique<TransformCbuf>( gfx,*this ) );
 }
 
-void Pyramid::Update( float dt ) noexcept
-{
-    roll += droll * dt;
-    pitch += dpitch * dt;
-    yaw += dyaw * dt;
-    theta += dtheta * dt;
-    phi += dphi * dt;
-    chi += dchi * dt;
-}
+ 
 
-DirectX::XMMATRIX Pyramid::GetTransformXM() const noexcept
+auto Pyramid::GetTransformXM() const noexcept -> DirectX::XMMATRIX
 {
-    namespace dx = DirectX;
-    return dx::XMMatrixRotationRollPitchYaw( pitch,yaw,roll ) *
-           dx::XMMatrixTranslation( r,0.0f,0.0f ) *
-           dx::XMMatrixRotationRollPitchYaw( theta,phi,chi );
+    return Object::GetTransformXM();
 }

@@ -8,7 +8,7 @@
 class DrawableBase
 {
     template<class T>
-    friend class Drawable;
+    friend class Object;
 
 public:
     DrawableBase()                     = default;

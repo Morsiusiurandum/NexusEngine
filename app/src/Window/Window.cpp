@@ -77,7 +77,7 @@ Window::Window(const int width, const int height, const WCHAR *name)
     ShowWindow(h_wnd, SW_SHOWDEFAULT);
     ImGui_ImplWin32_Init(h_wnd);
 
-    graphics_ptr = std::make_unique<Graphics>(h_wnd);
+    graphics_ptr = std::make_unique<Graphics>(h_wnd, width, height);
 }
 
 Window::~Window()

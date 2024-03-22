@@ -1,6 +1,6 @@
 #include "Box.h"
+#include "../Mesh/Cube.h"
 #include "BindableBase.h"
-#include "Cube.h"
 #include <DirectXMath.h>
 
 Box::Box(Graphics                              &gfx,

@@ -1,9 +1,9 @@
 #include "App.h"
-#include "Drawable/Box.h"
 #include "Drawable/DrawableBase.h"
-#include "Drawable/Drawing.h"
-#include "Drawable/Plane.h"
-#include "Drawable/Pyramid.h"
+#include "Drawable/Mesh/Plane.h"
+#include "Drawable/Object/Box.h"
+#include "Drawable/Object/Drawing.h"
+#include "Drawable/Object/Pyramid.h"
 #include "NexusMath.h"
 #include "imgui_impl_dx11.h"
 #include "imgui_impl_win32.h"
@@ -73,7 +73,7 @@ auto App::Update() -> void
 {
 
     const auto dt = timer.Mark();
-    window.GetGraphics().ClearBuffer(0.07f, 0.0f, 0.12f);
+    window.GetGraphics().ClearBuffer(0, 0, 0);
     window.GetGraphics().SetCamera(main_camera.GetMatrix());
 
     for (const auto &d: drawables)

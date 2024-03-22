@@ -1,7 +1,7 @@
 #include "Drawing.h"
-#include "../Surface.h"
+#include "../../Surface.h"
+#include "../Mesh/Plane.h"
 #include "BindableBase.h"
-#include "Plane.h"
 
 Drawing::Drawing(
     Graphics                              &graphics,
