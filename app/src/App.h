@@ -4,6 +4,7 @@
 #include "Camera.h"
 #include "Drawable/DrawableBase.h"
 #include "ImGuiManager.h"
+#include "Drawable/Object/Box.h"
 #include "Window/Window.h"
 
 class App
@@ -25,6 +26,8 @@ private:
     std::vector<std::unique_ptr<DrawableBase>> drawables;
     float                                      speed_factor = 13.0f;
     static constexpr size_t                    nDrawables   = 80;
+
+    std::unique_ptr<Box> _object;
 };
 
 #endif //APP_H

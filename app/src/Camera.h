@@ -7,9 +7,9 @@ class Camera
 {
 public:
     [[nodiscard]] auto GetMatrix() const noexcept -> DirectX::XMMATRIX;
-    
+
     void SpawnControlWindow() noexcept;
-    
+
     void Reset() noexcept;
 
 private:

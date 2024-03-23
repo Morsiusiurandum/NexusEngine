@@ -3,12 +3,13 @@
 
 #include "../Drawable.h"
 #include <random>
+#include "Transform.h"
 
 template<class T>
 class Object : public DrawableBase
 {
 public:
-    Object(Graphics &gfx, std::mt19937 &rng,
+    Object(Graphics &                             gfx, std::mt19937 &rng,
            std::uniform_real_distribution<float> &adist,
            std::uniform_real_distribution<float> &ddist,
            std::uniform_real_distribution<float> &odist,
@@ -25,7 +26,14 @@ public:
           dchi(odist(rng))
     {
     }
-    
+
+    explicit Object(const Graphics &)
+        : r(0), theta(0), phi(0), chi(0), droll(0), dpitch(0), dyaw(0), dtheta(0), dphi(0), dchi(0), transform()
+    {
+
+    }
+
+
     void Update(const float dt) noexcept override
     {
         roll += droll * dt;
@@ -38,10 +46,10 @@ public:
 
     [[nodiscard]] auto GetTransformXM() const noexcept -> DirectX::XMMATRIX override
     {
-    
-        return DirectX::XMMatrixRotationRollPitchYaw(pitch, yaw, roll)
-               * DirectX::XMMatrixTranslation(r, 0.0f, 0.0f)
-               * DirectX::XMMatrixRotationRollPitchYaw(theta, phi, chi);
+
+        return DirectX::XMMatrixRotationRollPitchYaw(pitch, yaw, roll)   //转动
+               * DirectX::XMMatrixTranslation(r, 0.0f, 0.0f)             //移动
+               * DirectX::XMMatrixRotationRollPitchYaw(theta, phi, chi); //转到
     }
 
 protected:
@@ -55,14 +63,14 @@ protected:
         assert("*Must* use AddStaticIndexBuffer to bind index buffer" && typeid(*bind) != typeid(IndexBuffer));
         staticBinds.push_back(std::move(bind));
     }
-    
+
     void AddStaticIndexBuffer(std::unique_ptr<IndexBuffer> index_buffer) noexcept(!IS_DEBUG)
     {
         assert("Attempting to add index buffer a second time" && index_buffer_ptr == nullptr);
         index_buffer_ptr = index_buffer.get();
         staticBinds.push_back(std::move(index_buffer));
     }
-    
+
     void SetIndexFromStatic() noexcept(!IS_DEBUG)
     {
         assert("Attempting to add index buffer a second time" && index_buffer_ptr == nullptr);
@@ -83,10 +91,10 @@ private:
         return staticBinds;
     }
 
-private:
+
     static std::vector<std::unique_ptr<Bindable>> staticBinds;
 
-private:
+
     // positional
     float r;
     float roll  = 0.0f;
@@ -102,6 +110,9 @@ private:
     float dtheta;
     float dphi;
     float dchi;
+
+public:
+    Transform transform;
 };
 
 template<class T>

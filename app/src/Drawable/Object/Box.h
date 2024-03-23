@@ -6,8 +6,8 @@
 class Box final : public Object<Box>
 {
 public:
-    Box(Graphics                              &gfx,
-        std::mt19937                          &rng,
+    Box(Graphics &                             gfx,
+        std::mt19937 &                         rng,
         std::uniform_real_distribution<float> &adist,
         std::uniform_real_distribution<float> &ddist,
         std::uniform_real_distribution<float> &odist,
@@ -15,6 +15,8 @@ public:
         std::uniform_real_distribution<float> &bdist,
         DirectX::XMFLOAT3                      material);
 
+    explicit Box(Graphics &graphics);
+    
     [[nodiscard]] auto GetTransformXM() const noexcept -> DirectX::XMMATRIX override;
 
 private:

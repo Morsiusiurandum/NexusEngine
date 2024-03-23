@@ -2,7 +2,8 @@
 
 Timer::Timer()
 {
-    last = std::chrono::steady_clock::now();
+    last   = std::chrono::steady_clock::now();
+    _start = std::chrono::steady_clock::now();
 }
 
 auto Timer::Mark() -> float
@@ -16,6 +17,6 @@ auto Timer::Mark() -> float
 
 auto Timer::Peek() const -> float
 {
-    const std::chrono::duration<float> frame_time = std::chrono::steady_clock::now() - last;
+    const std::chrono::duration<float> frame_time = std::chrono::steady_clock::now() - _start;
     return frame_time.count();
 }

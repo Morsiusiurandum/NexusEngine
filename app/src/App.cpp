@@ -21,6 +21,7 @@ App::App()
             : gfx(gfx)
         {
         }
+
         auto operator()() -> std::unique_ptr<DrawableBase>
         {
             const DirectX::XMFLOAT3 mat = {cdist(rng), cdist(rng), cdist(rng)};
@@ -30,14 +31,15 @@ App::App()
             case 0:
                 return std::make_unique<Drawing>(gfx, rng, adist, ddist, odist, rdist);
             case 1:
-                return std::make_unique<Box>(gfx, rng, adist, ddist, odist, rdist, bdist, mat);
+            // return std::make_unique<Box>(gfx, rng, adist, ddist, odist, rdist, bdist, mat);
             case 2:
                 return std::make_unique<Pyramid>(gfx, rng, adist, ddist, odist, rdist);
             }
+            return {};
         }
 
     private:
-        Graphics                             &gfx;
+        Graphics &                            gfx;
         std::mt19937                          rng{std::random_device{}()};
         std::uniform_real_distribution<float> adist{0.0f, PI * 2.0f};
         std::uniform_real_distribution<float> ddist{0.0f, PI * 0.5f};
@@ -51,6 +53,7 @@ App::App()
 
     drawables.reserve(nDrawables);
     std::generate_n(std::back_inserter(drawables), nDrawables, Factory{window.GetGraphics()});
+    _object = std::make_unique<Box>(window.GetGraphics());
 
     window.GetGraphics().SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 3.0f / 4.0f, 0.5f, 40.0f));
 }
@@ -72,22 +75,27 @@ auto App::Awake() -> int
 auto App::Update() -> void
 {
 
-    const auto dt = timer.Mark();
+    const auto dt = timer.Mark() * speed_factor;
     window.GetGraphics().ClearBuffer(0, 0, 0);
     window.GetGraphics().SetCamera(main_camera.GetMatrix());
 
-    for (const auto &d: drawables)
-    {
-        d->Update(window.keyboard.KeyIsPressed(VK_SPACE) ? 0.0f : dt);
-        d->Draw(window.GetGraphics());
-    }
-    
+    // for (const auto &d: drawables)
+    // {
+    //
+    //     d->Update(window.keyboard.KeyIsPressed(VK_SPACE) ? 0.0f : dt);
+    //     d->Draw(window.GetGraphics());
+    // }
+
+    _object->transform.position.x = 3 * sin(timer.Peek() * speed_factor);
+    _object->transform.position.y = 3 * cos(timer.Peek() * speed_factor);
+    _object->Draw(window.GetGraphics());
+
     // imgui window to control simulation speed
-    if( ImGui::Begin( "Simulation Speed" ) )
+    if (ImGui::Begin("Simulation Speed"))
     {
-        ImGui::SliderFloat( "Speed Factor",&speed_factor,0.0f,4.0f );
-        ImGui::Text( "%.3f ms/frame (%.1f FPS)",1000.0f / ImGui::GetIO().Framerate,ImGui::GetIO().Framerate );
-        ImGui::Text( "Status: %s",window.keyboard.KeyIsPressed( VK_SPACE ) ? "PAUSED" : "RUNNING (hold spacebar to pause)" );
+        ImGui::SliderFloat("Speed Factor", &speed_factor, 0.0f, 15.0f);
+        ImGui::Text("%.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+        ImGui::Text("Status: %s", window.keyboard.KeyIsPressed(VK_SPACE) ? "PAUSED" : "RUNNING (hold spacebar to pause)");
     }
     ImGui::End();
     //
