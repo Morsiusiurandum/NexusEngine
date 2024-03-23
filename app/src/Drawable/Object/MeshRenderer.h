@@ -1,19 +1,20 @@
-#ifndef OBJECT_H
-#define OBJECT_H
+#ifndef MESH_RENDERER_H
+#define MESH_RENDERER_H
 
 #include "../Drawable.h"
 #include <random>
 #include "Transform.h"
 
 template<class T>
-class Object : public DrawableBase
+class MeshRenderer : public DrawableBase 
 {
 public:
-    Object(Graphics &                             gfx, std::mt19937 &rng,
-           std::uniform_real_distribution<float> &adist,
-           std::uniform_real_distribution<float> &ddist,
-           std::uniform_real_distribution<float> &odist,
-           std::uniform_real_distribution<float> &rdist)
+    MeshRenderer(Graphics &                             gfx,
+                 std::mt19937 &                         rng,
+                 std::uniform_real_distribution<float> &adist,
+                 std::uniform_real_distribution<float> &ddist,
+                 std::uniform_real_distribution<float> &odist,
+                 std::uniform_real_distribution<float> &rdist)
         : r(rdist(rng)),
           theta(adist(rng)),
           phi(adist(rng)),
@@ -23,11 +24,12 @@ public:
           dyaw(ddist(rng)),
           dtheta(odist(rng)),
           dphi(odist(rng)),
-          dchi(odist(rng))
+          dchi(odist(rng)),
+          transform()
     {
     }
 
-    explicit Object(const Graphics &)
+    explicit MeshRenderer(const Graphics &)
         : r(0), theta(0), phi(0), chi(0), droll(0), dpitch(0), dyaw(0), dtheta(0), dphi(0), dchi(0), transform()
     {
 
@@ -116,6 +118,6 @@ public:
 };
 
 template<class T>
-std::vector<std::unique_ptr<Bindable>> Object<T>::staticBinds;
+std::vector<std::unique_ptr<Bindable>> MeshRenderer<T>::staticBinds;
 
-#endif //OBJECT_H
+#endif

@@ -51,11 +51,11 @@ public:
     Window(const Window &) = delete;
 
     auto operator=(const Window &) -> Window & = delete;
-    ~    Window();
+    ~ Window();
 
     [[nodiscard]] static auto ProcessMessage() noexcept -> std::optional<int>;
 
-    [[nodiscard]] auto GetGraphics() const -> Graphics &;
+    [[nodiscard]]   auto GetGraphics() -> Graphics &;
 
 private:
     [[nodiscard]] auto HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) -> LRESULT;
@@ -73,7 +73,7 @@ private:
 
     HWND h_wnd;
 
-    std::unique_ptr<Graphics> graphics_ptr;
+      std::unique_ptr<Graphics> graphics_ptr ;
 };
 
 #endif //NEXUS_WINDOW_H

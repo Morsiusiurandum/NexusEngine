@@ -12,7 +12,7 @@ Drawing::Drawing(
     std::uniform_real_distribution<float> &ddist,
     std::uniform_real_distribution<float> &odist,
     std::uniform_real_distribution<float> &rdist)
-    : Object(graphics, rng, adist, ddist, odist, rdist)
+    : MeshRenderer(graphics, rng, adist, ddist, odist, rdist)
 {
 
     if (!IsStaticInitialized())
@@ -66,5 +66,5 @@ Drawing::Drawing(
 auto Drawing::GetTransformXM() const noexcept -> DirectX::XMMATRIX
 {
    
-    return Object::GetTransformXM();
+    return MeshRenderer::GetTransformXM();
 }

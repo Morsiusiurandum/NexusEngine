@@ -11,7 +11,7 @@ Box::Box(Graphics &                             gfx,
          std::uniform_real_distribution<float> &rdist,
          std::uniform_real_distribution<float> &bdist,
          DirectX::XMFLOAT3                      material)
-    : Object(gfx, rng, adist, ddist, odist, rdist)
+    : MeshRenderer(gfx, rng, adist, ddist, odist, rdist)
 {
     namespace dx = DirectX;
 
@@ -82,7 +82,7 @@ Box::Box(Graphics &                             gfx,
 }
 
 Box::Box(Graphics &graphics)
-    : Object(graphics), mt()
+    : MeshRenderer(graphics), mt()
 {
     if (!IsStaticInitialized())
     {

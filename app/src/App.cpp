@@ -1,11 +1,9 @@
 #include "App.h"
 #include "Drawable/DrawableBase.h"
 #include "Drawable/Mesh/Plane.h"
-#include "Drawable/Object/Box.h"
 #include "Drawable/Object/Drawing.h"
 #include "Drawable/Object/Pyramid.h"
 #include "NexusMath.h"
-#include "imgui_impl_dx11.h"
 #include "imgui_impl_win32.h"
 #include <memory>
 #include <random>
@@ -53,7 +51,7 @@ App::App()
 
     drawables.reserve(nDrawables);
     std::generate_n(std::back_inserter(drawables), nDrawables, Factory{window.GetGraphics()});
-    _object = std::make_unique<Box>(window.GetGraphics());
+    _object = std::make_unique<GameObject>(window.GetGraphics(), PRIMITIVE_CUBE);
 
     window.GetGraphics().SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 3.0f / 4.0f, 0.5f, 40.0f));
 }
@@ -88,7 +86,7 @@ auto App::Update() -> void
 
     _object->transform.position.x = 3 * sin(timer.Peek() * speed_factor);
     _object->transform.position.y = 3 * cos(timer.Peek() * speed_factor);
-    _object->Draw(window.GetGraphics());
+    _object->mesh_renderer->Draw(window.GetGraphics());
 
     // imgui window to control simulation speed
     if (ImGui::Begin("Simulation Speed"))

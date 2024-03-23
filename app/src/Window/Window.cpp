@@ -1,5 +1,6 @@
 #include "Window.h"
 #include "imgui_impl_win32.h"
+#include "../GameObject.h"
 
 extern IMGUI_IMPL_API auto ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) -> LRESULT;
 
@@ -109,10 +110,11 @@ auto Window::ProcessMessage() noexcept -> std::optional<int>
     return {};
 }
 
-auto Window::GetGraphics() const -> Graphics &
+auto Window::GetGraphics() -> Graphics &
 {
     return *graphics_ptr;
 }
+
 
 auto Window::HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) -> LRESULT
 {
@@ -228,7 +230,7 @@ auto Window::HandleMsg(HWND hWnd, const UINT msg, const WPARAM wParam, LPARAM lP
     }
     case WM_MOUSEWHEEL: {
         const auto [x, y] = MAKEPOINTS(lParam);
-        const int delta   = GET_WHEEL_DELTA_WPARAM(wParam);
+        const int  delta  = GET_WHEEL_DELTA_WPARAM(wParam);
         mouse.OnWheelDelta(x, y, delta);
         break;
     }

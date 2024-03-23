@@ -109,7 +109,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>F:\source\Nexus\app\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>app/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -163,16 +163,18 @@
     <ClInclude Include="app\src\Drawable\Mesh\Cone.h" />
     <ClInclude Include="app\src\Drawable\Mesh\Cube.h" />
     <ClInclude Include="app\src\Drawable\Mesh\IndexedTriangle.h" />
+    <ClInclude Include="app\src\Drawable\Mesh\Mesh.h" />
     <ClInclude Include="app\src\Drawable\Mesh\Plane.h" />
     <ClInclude Include="app\src\Drawable\Mesh\Sphere.h" />
     <ClInclude Include="app\src\Drawable\Object\Box.h" />
     <ClInclude Include="app\src\Drawable\Object\Drawing.h" />
-    <ClInclude Include="app\src\Drawable\Object\Object.h" />
+    <ClInclude Include="app\src\Drawable\Object\MeshRenderer.h" />
     <ClInclude Include="app\src\Drawable\Object\Pyramid.h" />
     <ClInclude Include="app\src\Drawable\Object\Transform.h" />
     <ClInclude Include="app\src\Exception\Exception.h" />
     <ClInclude Include="app\src\Exception\GraphicsException.h" />
     <ClInclude Include="app\src\Exception\WindowException.h" />
+    <ClInclude Include="app\src\GameObject.h" />
     <ClInclude Include="app\src\Graphics.h" />
     <ClInclude Include="app\src\ImGuiManager.h" />
     <ClInclude Include="app\src\IO\Keyboard.h" />
@@ -277,6 +279,7 @@
     <ClCompile Include="app\src\Exception\Exception.cpp" />
     <ClCompile Include="app\src\Exception\GraphicsException.cpp" />
     <ClCompile Include="app\src\Exception\WindowException.cpp" />
+    <ClCompile Include="app\src\GameObject.cpp" />
     <ClCompile Include="app\src\Graphics.cpp" />
     <ClCompile Include="app\src\ImGuiManager.cpp" />
     <ClCompile Include="app\src\IO\Keyboard.cpp" />

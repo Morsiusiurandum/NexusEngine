@@ -23,8 +23,8 @@ public:
     explicit Graphics(HWND window, int width, int height);
     ~Graphics();
 
-    explicit Graphics(const GraphicsException &)   = delete;
-    auto operator=(const Graphics &) -> Graphics & = delete;
+    explicit Graphics(const Graphics &)                = delete;
+    auto     operator=(const Graphics &) -> Graphics & = delete;
 
     /**
      * \brief End current frame

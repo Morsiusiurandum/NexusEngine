@@ -1,8 +1,8 @@
 #ifndef DRAWING_H
 #define DRAWING_H
-#include "Object.h"
+#include "MeshRenderer.h"
 
-class Drawing : public Object<Drawing>
+class Drawing : public MeshRenderer<Drawing>
 {
 public:
     Drawing(

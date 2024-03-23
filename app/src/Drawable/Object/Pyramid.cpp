@@ -8,7 +8,7 @@ Pyramid::Pyramid( Graphics& gfx,
                  std::uniform_real_distribution<float>& ddist,
                  std::uniform_real_distribution<float>& odist,
                  std::uniform_real_distribution<float>& rdist )
-    : Object(gfx, rng, adist, ddist, odist, rdist)
+    : MeshRenderer(gfx, rng, adist, ddist, odist, rdist)
        
 {
     namespace dx = DirectX;
@@ -68,5 +68,5 @@ Pyramid::Pyramid( Graphics& gfx,
 
 auto Pyramid::GetTransformXM() const noexcept -> DirectX::XMMATRIX
 {
-    return Object::GetTransformXM();
+    return MeshRenderer::GetTransformXM();
 }

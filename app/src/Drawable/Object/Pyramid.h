@@ -1,10 +1,10 @@
 #ifndef PYRAMID_H
 #define PYRAMID_H
 
-#include "Object.h"
+#include "MeshRenderer.h"
 #include <random>
 
-class Pyramid : public Object<Pyramid>
+class Pyramid : public MeshRenderer<Pyramid>
 {
 public:
     Pyramid(Graphics &gfx, std::mt19937 &rng,

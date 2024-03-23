@@ -2,6 +2,7 @@
 #define APP_H
 
 #include "Camera.h"
+#include "GameObject.h"
 #include "Drawable/DrawableBase.h"
 #include "ImGuiManager.h"
 #include "Drawable/Object/Box.h"
@@ -27,7 +28,7 @@ private:
     float                                      speed_factor = 13.0f;
     static constexpr size_t                    nDrawables   = 80;
 
-    std::unique_ptr<Box> _object;
+    std::unique_ptr<GameObject> _object;
 };
 
 #endif //APP_H

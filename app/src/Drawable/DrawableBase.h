@@ -8,7 +8,7 @@
 class DrawableBase
 {
     template<class T>
-    friend class Object;
+    friend class MeshRenderer;
 
 public:
     DrawableBase()                     = default;

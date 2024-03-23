@@ -1,9 +1,9 @@
 #ifndef BOX_H
 #define BOX_H
 
-#include "Object.h"
+#include "MeshRenderer.h"
 
-class Box final : public Object<Box>
+class Box final : public MeshRenderer<Box>
 {
 public:
     Box(Graphics &                             gfx,
