@@ -5,6 +5,8 @@
 #include "Drawable/Object/Pyramid.h"
 #include "NexusMath.h"
 #include "imgui_impl_win32.h"
+#include "Drawable/Mesh/Mesh.h"
+
 #include <memory>
 #include <random>
 #include <vector>
@@ -51,7 +53,13 @@ App::App()
 
     drawables.reserve(nDrawables);
     std::generate_n(std::back_inserter(drawables), nDrawables, Factory{window.GetGraphics()});
-    _object = std::make_unique<GameObject>(window.GetGraphics(), PRIMITIVE_CUBE);
+
+    _object = GameObject::CreatePrimitive(window.GetGraphics(), PRIMITIVE_CUBE);
+
+    _object->AddComponent(std::make_unique<Mesh>());
+    _object->AddComponent(std::make_unique<Mesh>());
+
+    _object->_component_vector[1]->game_object->transform.position.x = 1;
 
     window.GetGraphics().SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 3.0f / 4.0f, 0.5f, 40.0f));
 }

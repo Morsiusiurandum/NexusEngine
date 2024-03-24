@@ -1,33 +1,45 @@
 ﻿#ifndef GAME_OBJECT_H
 #define GAME_OBJECT_H
 
-#include "Drawable/Mesh/Mesh.h"
+
+#include <vector>
+#include "Component.h"
 #include "Drawable/Object/MeshRenderer.h"
 #include "Drawable/Object/Transform.h"
+
+#include <memory>
 
 enum PrimitiveType
 {
     PRIMITIVE_CUBE
 };
 
-class GameObject
+class GameObject : public std::enable_shared_from_this<GameObject>
 {
 public:
     GameObject()  = default;
     ~GameObject() = default;
 
+    GameObject(const GameObject &)                     = delete;
+    auto operator=(const GameObject &) -> GameObject & = delete;
 
-    GameObject(Graphics &graphics, PrimitiveType type);
+    static auto CreatePrimitive(Graphics &graphics, PrimitiveType type) -> std::shared_ptr<GameObject>;
 
-    static GameObject CreatePrimitive(PrimitiveType type);
-
-    // template<class T>
+    //
     // T GetComponent();
 
-    Transform                     transform;
-    std::unique_ptr<DrawableBase> mesh_renderer;
-    Mesh                          mesh;
-};
 
+    void AddComponent(std::unique_ptr<Component> component);
+
+    Transform transform;
+
+    std::unique_ptr<DrawableBase> mesh_renderer;
+
+    //private:
+    std::vector<std::unique_ptr<Component>> _component_vector;
+
+private:
+    //std::shared_ptr<GameObject> _self;
+};
 
 #endif

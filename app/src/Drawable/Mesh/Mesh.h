@@ -1,9 +1,11 @@
 ﻿#ifndef MESH_H
 #define MESH_H
 
-class Mesh
+#include "../../Component.h"
+
+class Mesh final : public Component
 {
-public:
+ 
 
 };
 #endif

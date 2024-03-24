@@ -28,7 +28,7 @@ private:
     float                                      speed_factor = 13.0f;
     static constexpr size_t                    nDrawables   = 80;
 
-    std::unique_ptr<GameObject> _object;
+    std::shared_ptr<GameObject> _object;
 };
 
 #endif //APP_H

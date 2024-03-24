@@ -158,6 +158,7 @@
     <ClInclude Include="app\src\Bindable\VertexBuffer.h" />
     <ClInclude Include="app\src\Bindable\VertexShader.h" />
     <ClInclude Include="app\src\Camera.h" />
+    <ClInclude Include="app\src\Component.h" />
     <ClInclude Include="app\src\Drawable\Drawable.h" />
     <ClInclude Include="app\src\Drawable\DrawableBase.h" />
     <ClInclude Include="app\src\Drawable\Mesh\Cone.h" />
@@ -197,7 +198,9 @@
     <ClCompile Include="app\src\Bindable\VertexBuffer.cpp" />
     <ClCompile Include="app\src\Bindable\VertexShader.cpp" />
     <ClCompile Include="app\src\Camera.cpp" />
+    <ClCompile Include="app\src\Component.cpp" />
     <ClCompile Include="app\src\Drawable\DrawableBase.cpp" />
+    <ClCompile Include="app\src\Drawable\Mesh\Mesh.cpp" />
     <ClCompile Include="app\src\Drawable\Object\Box.cpp" />
     <ClCompile Include="app\src\Drawable\Object\Drawing.cpp" />
     <ClCompile Include="app\src\Drawable\Object\Pyramid.cpp" />
