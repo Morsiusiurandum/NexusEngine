@@ -1,13 +1,13 @@
 ﻿#include "GameObject.h"
 
-#include "Drawable/Mesh/Mesh.h"
 #include "Drawable/Object/Box.h"
 #include "Window/Window.h"
+#include "Drawable/Mesh/Mesh.h"
 
 
 auto GameObject::CreatePrimitive(Graphics &graphics, const PrimitiveType type) -> std::shared_ptr<GameObject>
 {
-    auto ptr = shared_from_this();
+    auto ptr = std::make_shared<GameObject>();
 
     switch (type)
     {
