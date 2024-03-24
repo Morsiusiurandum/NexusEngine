@@ -5,7 +5,13 @@
 
 class Mesh final : public Component
 {
- 
+    ComponentType GetType() override
+    {
+        return MESH;
+    }
+
+public:
+    int a = 5;
 
 };
 #endif

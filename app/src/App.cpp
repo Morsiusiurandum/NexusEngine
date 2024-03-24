@@ -56,10 +56,7 @@ App::App()
 
     _object = GameObject::CreatePrimitive(window.GetGraphics(), PRIMITIVE_CUBE);
 
-    _object->AddComponent(std::make_unique<Mesh>());
-    _object->AddComponent(std::make_unique<Mesh>());
-
-    _object->_component_vector[1]->game_object->transform.position.x = 1;
+    const auto mesh = _object->GetComponent<Mesh>(MESH);
 
     window.GetGraphics().SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 3.0f / 4.0f, 0.5f, 40.0f));
 }
