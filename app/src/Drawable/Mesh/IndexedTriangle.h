@@ -9,6 +9,7 @@ class IndexedTriangle
 {
 public:
     IndexedTriangle() = default;
+
     IndexedTriangle(std::vector<T> vertex_in, std::vector<uint16_t> index_in)
         : vertex(std::move(vertex_in)), index(std::move(index_in))
     {
@@ -23,9 +24,10 @@ public:
             const DirectX::XMVECTOR pos = DirectX::XMLoadFloat3(&v.pos);
             DirectX::XMStoreFloat3(
                 &v.pos,
-                DirectX::XMVector3Transform(pos, matrix));
+                XMVector3Transform(pos, matrix));
         }
     }
+
     // asserts face-independent vertices w/ normals cleared to zero
     void SetNormalsIndependentFlat() noexcept(!IS_DEBUG)
     {

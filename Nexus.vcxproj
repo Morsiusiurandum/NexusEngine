@@ -158,7 +158,9 @@
     <ClInclude Include="app\src\Bindable\VertexBuffer.h" />
     <ClInclude Include="app\src\Bindable\VertexShader.h" />
     <ClInclude Include="app\src\Camera.h" />
-    <ClInclude Include="app\src\Component.h" />
+    <ClInclude Include="app\src\Component\Component.h" />
+    <ClInclude Include="app\src\Component\MeshFilter.h" />
+    <ClInclude Include="app\src\Component\MeshRenderer.h" />
     <ClInclude Include="app\src\Drawable\Drawable.h" />
     <ClInclude Include="app\src\Drawable\DrawableBase.h" />
     <ClInclude Include="app\src\Drawable\Mesh\Cone.h" />
@@ -167,9 +169,9 @@
     <ClInclude Include="app\src\Drawable\Mesh\Mesh.h" />
     <ClInclude Include="app\src\Drawable\Mesh\Plane.h" />
     <ClInclude Include="app\src\Drawable\Mesh\Sphere.h" />
+    <ClInclude Include="app\src\Drawable\Mesh\Vertex.h" />
     <ClInclude Include="app\src\Drawable\Object\Box.h" />
     <ClInclude Include="app\src\Drawable\Object\Drawing.h" />
-    <ClInclude Include="app\src\Drawable\Object\MeshRenderer.h" />
     <ClInclude Include="app\src\Drawable\Object\Pyramid.h" />
     <ClInclude Include="app\src\Drawable\Object\Transform.h" />
     <ClInclude Include="app\src\Exception\Exception.h" />
@@ -198,7 +200,6 @@
     <ClCompile Include="app\src\Bindable\VertexBuffer.cpp" />
     <ClCompile Include="app\src\Bindable\VertexShader.cpp" />
     <ClCompile Include="app\src\Camera.cpp" />
-    <ClCompile Include="app\src\Component.cpp" />
     <ClCompile Include="app\src\Drawable\DrawableBase.cpp" />
     <ClCompile Include="app\src\Drawable\Mesh\Mesh.cpp" />
     <ClCompile Include="app\src\Drawable\Object\Box.cpp" />

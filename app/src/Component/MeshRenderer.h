@@ -1,12 +1,12 @@
 #ifndef MESH_RENDERER_H
 #define MESH_RENDERER_H
 
-#include "../Drawable.h"
+#include "../Drawable/Drawable.h"
 #include <random>
-#include "Transform.h"
+#include "../Drawable/Object/Transform.h"
 
 template<class T>
-class MeshRenderer : public DrawableBase 
+class MeshRenderer : public DrawableBase
 {
 public:
     MeshRenderer(Graphics &                             gfx,

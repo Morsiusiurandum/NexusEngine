@@ -4,11 +4,6 @@
 #include <memory>
 #include <string>
 
-enum ComponentType
-{
-    MESH
-};
-
 
 class GameObject;
 
@@ -17,9 +12,16 @@ class Component
     friend GameObject;
 
 public:
-    virtual ~Component() = default;
+    enum Type
+    {
+        MESH
+    };
 
-    virtual ComponentType GetType() = 0;
+   // virtual      ~Component() = 0;
+    virtual Type GetType() = 0;
+
+     
+
 
     std::string                 tag;
     std::shared_ptr<GameObject> game_object = nullptr;

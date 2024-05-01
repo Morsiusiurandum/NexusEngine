@@ -1,5 +1,5 @@
-#ifndef CONE_H
-#define CONE_H
+#ifndef MESH_CONE_H
+#define MESH_CONE_H
 
 #include "IndexedTriangle.h"
 #include "NexusMath.h"
@@ -9,12 +9,12 @@ class Cone
 {
 public:
     template<class V>
-    static IndexedTriangle<V> MakeTesselated(int longDiv)
+    static IndexedTriangle<V> GetMesh(int longDiv = 24)
     {
-        namespace dx = DirectX;
+
         assert(longDiv >= 3);
 
-        const auto  base           = dx::XMVectorSet(1.0f, 0.0f, -1.0f, 0.0f);
+        const auto  base           = DirectX::XMVectorSet(1.0f, 0.0f, -1.0f, 0.0f);
         const float longitudeAngle = 2.0f * PI / longDiv;
 
         // base vertices
@@ -22,19 +22,19 @@ public:
         for (int iLong = 0; iLong < longDiv; iLong++)
         {
             vertices.emplace_back();
-            auto v = dx::XMVector3Transform(
+            auto v = DirectX::XMVector3Transform(
                 base,
-                dx::XMMatrixRotationZ(longitudeAngle * iLong));
-            dx::XMStoreFloat3(&vertices.back().pos, v);
+                DirectX::XMMatrixRotationZ(longitudeAngle * iLong));
+            DirectX::XMStoreFloat3(&vertices.back().pos, v);
         }
         // the center
         vertices.emplace_back();
         vertices.back().pos = {0.0f, 0.0f, -1.0f};
-        const auto iCenter  = (unsigned short) (vertices.size() - 1);
+        const auto iCenter  = static_cast<unsigned short>(vertices.size() - 1);
         // the tip :darkness:
         vertices.emplace_back();
         vertices.back().pos = {0.0f, 0.0f, 1.0f};
-        const auto iTip     = (unsigned short) (vertices.size() - 1);
+        const auto iTip     = static_cast<unsigned short>(vertices.size() - 1);
 
         // base indices
         std::vector<unsigned short> indices;
@@ -55,10 +55,5 @@ public:
 
         return {std::move(vertices), std::move(indices)};
     }
-    template<class V>
-    static IndexedTriangle<V> Make()
-    {
-        return MakeTesselated<V>(24);
-    }
 };
-#endif //CONE_H
+#endif

@@ -5,7 +5,7 @@
 #include "Drawable/Object/Pyramid.h"
 #include "NexusMath.h"
 #include "imgui_impl_win32.h"
-#include "Drawable/Mesh/Mesh.h"
+#include "Component/MeshFilter.h"
 
 #include <memory>
 #include <random>
@@ -56,7 +56,7 @@ App::App()
 
     _object = GameObject::CreatePrimitive(window.GetGraphics(), PRIMITIVE_CUBE);
 
-    const auto mesh = _object->GetComponent<Mesh>(MESH);
+    const auto mesh = _object->GetComponent<MeshFilter>(Component::MESH);
 
     window.GetGraphics().SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 3.0f / 4.0f, 0.5f, 40.0f));
 }

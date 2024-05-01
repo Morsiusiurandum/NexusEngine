@@ -1,7 +1,7 @@
 #ifndef BOX_H
 #define BOX_H
 
-#include "MeshRenderer.h"
+#include "../../Component/MeshRenderer.h"
 
 class Box final : public MeshRenderer<Box>
 {

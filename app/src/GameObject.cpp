@@ -2,7 +2,7 @@
 
 #include "Drawable/Object/Box.h"
 #include "Window/Window.h"
-#include "Drawable/Mesh/Mesh.h"
+#include "Component/MeshFilter.h"
 
 #include <memory>
 
@@ -14,7 +14,7 @@ auto GameObject::CreatePrimitive(Graphics &graphics, const PrimitiveType type) n
     switch (type)
     {
     case PRIMITIVE_CUBE:
-        ptr->AddComponent(std::make_unique<Mesh>());
+        ptr->AddComponent(std::make_unique<MeshFilter>(Mesh::CUBE_MESH));
         ptr->mesh_renderer = std::make_unique<Box>(graphics);
         break;
     }
@@ -23,7 +23,7 @@ auto GameObject::CreatePrimitive(Graphics &graphics, const PrimitiveType type) n
 }
 
 template<typename T>
-std::shared_ptr<T> GameObject::GetComponent(const ComponentType type)
+std::shared_ptr<T> GameObject::GetComponent(const Component::Type type)
 {
     if (const auto find = _component_map.find(type); find != _component_map.end())
     {
@@ -44,4 +44,4 @@ void GameObject::AddComponent(std::unique_ptr<Component> component)
 
 }
 
-template std::shared_ptr<Mesh> GameObject::GetComponent(ComponentType type);
+template std::shared_ptr<MeshFilter> GameObject::GetComponent(Component::Type type);

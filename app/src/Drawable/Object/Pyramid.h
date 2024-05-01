@@ -1,7 +1,7 @@
 #ifndef PYRAMID_H
 #define PYRAMID_H
 
-#include "MeshRenderer.h"
+#include "../../Component/MeshRenderer.h"
 #include <random>
 
 class Pyramid : public MeshRenderer<Pyramid>

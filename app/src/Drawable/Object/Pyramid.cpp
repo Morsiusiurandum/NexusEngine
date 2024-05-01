@@ -26,7 +26,7 @@ Pyramid::Pyramid( Graphics& gfx,
                 unsigned char a;
             } color;
         };
-        auto model = Cone::MakeTesselated<Vertex>( 4 );
+        auto model = Cone::GetMesh<Vertex>( 4 );
         // set vertex colors for mesh
         model.vertex[0].color = { 255,255,0 };
         model.vertex[1].color = { 255,255,0 };

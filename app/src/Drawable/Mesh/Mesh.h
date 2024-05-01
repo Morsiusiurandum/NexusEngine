@@ -1,17 +1,31 @@
 ﻿#ifndef MESH_H
 #define MESH_H
 
-#include "../../Component.h"
+#include "NexusMacro.h"
 
-class Mesh final : public Component
+#include <vector>
+#include "Vertex.h"
+
+class Mesh
 {
-    ComponentType GetType() override
-    {
-        return MESH;
-    }
-
 public:
-    int a = 5;
+    enum Type
+    {
+        CUBE_MESH
+    };
+
+    Mesh(std::vector<Vertex> vertex_in, std::vector<uint16_t> index_in);
+
+    void UpdateTransform(DirectX::FXMMATRIX   &transform);
+
+    /**
+     * \brief Asserts face-independent vertices normals and cleared to zero
+     */
+    void SetNormalsIndependentFlat() noexcept(!IS_DEBUG);
+
+private:
+    std::vector<Vertex>   vertex;
+    std::vector<uint16_t> index;
 
 };
 #endif

@@ -1,6 +1,6 @@
 #ifndef DRAWING_H
 #define DRAWING_H
-#include "MeshRenderer.h"
+#include "../../Component/MeshRenderer.h"
 
 class Drawing : public MeshRenderer<Drawing>
 {
