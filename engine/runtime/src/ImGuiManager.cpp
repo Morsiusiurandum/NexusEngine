@@ -1,4 +1,4 @@
-#include "ImguiManager.h"
+#include "ImGuiManager.h"
 #include "imgui.h"
 
 ImguiManager::ImguiManager()

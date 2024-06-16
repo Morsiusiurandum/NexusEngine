@@ -1,6 +1,6 @@
 enable_language("RC")
 
-set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD 20)
 
 add_compile_definitions(_UNICODE UNICODE)
 
@@ -10,12 +10,12 @@ add_compile_definitions(_UNICODE UNICODE)
 #
 #add_compile_definitions(_TIDY_TIMEOUT)
 
-include_directories(include)
+include_directories(runtime/include)
 
-set(WIN32_RESOURCES resources/WindowsProject.rc)
+set(WIN32_RESOURCES editor/resources/WindowsProject.rc)
 
-file(GLOB_RECURSE resources resources/**)
-file(GLOB_RECURSE src src/** include/**)
+file(GLOB_RECURSE resources editor/resources/**)
+file(GLOB_RECURSE src runtime/src/** runtime/include/**)
 
 add_executable(${WINDOWS_APP_NAME} WIN32 ${resources} ${src})
 
