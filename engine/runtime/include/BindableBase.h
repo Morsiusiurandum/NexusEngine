@@ -1,13 +1,13 @@
 #ifndef BINDABLE_BASE_H
 #define BINDABLE_BASE_H
 
-#include "../src/Bindable/ConstantBuffer.h"
-#include "../src/Bindable/IndexBuffer.h"
-#include "../src/Bindable/InputLayout.h"
-#include "../src/Bindable/PixelShader.h"
-#include "../src/Bindable/Topology.h"
-#include "../src/Bindable/TransformCbuf.h"
-#include "../src/Bindable/VertexBuffer.h"
-#include "../src/Bindable/VertexShader.h"
+#include "../platform/windows/Bindable/ConstantBuffer.h"
+#include "../platform/windows/Bindable/IndexBuffer.h"
+#include "../platform/windows/Bindable/InputLayout.h"
+#include "../platform/windows/Bindable/PixelShader.h"
+#include "../platform/windows/Bindable/Topology.h"
+#include "../platform/windows/Bindable/TransformCbuf.h"
+#include "../platform/windows/Bindable/VertexBuffer.h"
+#include "../platform/windows/Bindable/VertexShader.h"
 
 #endif //BINDABLE_BASE_H

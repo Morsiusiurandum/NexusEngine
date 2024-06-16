@@ -1,10 +1,10 @@
 ﻿#ifndef MESH_H
 #define MESH_H
 
-#include "NexusMacro.h"
+#include "../platform/windows/windows_platform_macro.h"
 
-#include <vector>
 #include "Vertex.h"
+#include <vector>
 
 class Mesh
 {

@@ -1,5 +1,5 @@
 #include "mouse.h"
-#include "NexusMacro.h"
+#include "../../platform/windows/windows_platform_macro.h"
 
 auto Mouse::GetPos() const noexcept -> std::pair<int, int>
 {

@@ -1,8 +1,8 @@
 ﻿#include "GameObject.h"
 
-#include "Drawable/Object/Box.h"
-#include "Window/Window.h"
-#include "Component/MeshFilter.h"
+#include "../platform/windows/Window.h"
+#include "../core/Component/MeshFilter.h"
+#include "../core/Drawable/Object/Box.h"
 
 #include <memory>
 

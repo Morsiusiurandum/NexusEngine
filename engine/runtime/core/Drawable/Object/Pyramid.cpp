@@ -1,5 +1,5 @@
 #include "Pyramid.h"
-#include "../Mesh/Cone.h"
+#include "../../mesh/Cone.h"
 #include "BindableBase.h"
 
 Pyramid::Pyramid( Graphics& gfx,

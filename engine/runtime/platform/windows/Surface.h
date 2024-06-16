@@ -4,7 +4,7 @@
 #include "../../utils/Color.h"
 #include "Exception/Exception.h"
 
-#include "NexusMacro.h"
+#include "windows_platform_macro.h"
 #include <DirectXMath.h>
 #include <DirectXTex.h>
 #include <dxgiformat.h>

@@ -2,7 +2,7 @@
 #define GRAPHICS_H
 
 #include "Exception/GraphicsException.h"
-#include "NexusMacro.h"
+#include "windows_platform_macro.h"
 #include <DirectXMath.h>
 #include <d3d11.h>
 #include <wrl.h>

@@ -1,8 +1,8 @@
 ﻿#ifndef COMPONENT_MESH_FILTER_H
 #define COMPONENT_MESH_FILTER_H
 
+#include "../mesh/Mesh.h"
 #include "Component.h"
-#include "../Drawable/Mesh/Mesh.h"
 
 class MeshFilter final : public Component
 {

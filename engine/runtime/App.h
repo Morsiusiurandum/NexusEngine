@@ -1,12 +1,12 @@
 #ifndef APP_H
 #define APP_H
 
-#include "Camera.h"
-#include "GameObject.h"
-#include "Drawable/DrawableBase.h"
-#include "ImGuiManager.h"
-#include "Drawable/Object/Box.h"
-#include "Window/Window.h"
+#include "core/utils/Timer.h"
+#include "platform/windows/Window.h"
+#include "modules/Camera.h"
+#include "core/Drawable/DrawableBase.h"
+#include "modules/GameObject.h"
+#include "modules/ImGuiManager.h"
 
 class App
 {
@@ -20,11 +20,11 @@ private:
     void Update();
 
 private:
-    ImguiManager                               imGui_manager;
+    ImguiManager                               imGui_manager{};
     Camera                                     main_camera{};
     Window                                     window;
     Timer                                      timer{};
-    std::vector<std::unique_ptr<DrawableBase>> drawables;
+    std::vector<std::unique_ptr<DrawableBase>> drawables{};
     float                                      speed_factor = 13.0f;
     static constexpr size_t                    nDrawables   = 80;
 

@@ -1,6 +1,6 @@
 #include "Surface.h"
 #include "Exception/WindowException.h"
-#include "NexusMacro.h"
+#include "windows_platform_macro.h"
 #include <algorithm>
 #include <cassert>
 #include <filesystem>

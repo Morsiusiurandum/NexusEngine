@@ -1,15 +1,14 @@
 #include "App.h"
-#include "Drawable/DrawableBase.h"
-#include "Drawable/Mesh/Plane.h"
-#include "Drawable/Object/Drawing.h"
-#include "Drawable/Object/Pyramid.h"
-#include "NexusMath.h"
+#include "core/Component/MeshFilter.h"
+#include "core/Drawable/DrawableBase.h"
+#include "core/Drawable/Object/Drawing.h"
+#include "core/Drawable/Object/Pyramid.h"
 #include "imgui_impl_win32.h"
-#include "Component/MeshFilter.h"
+#include "include/NexusMath.h"
+#include "modules/GameObject.h"
 
 #include <memory>
 #include <random>
-#include <vector>
 
 App::App()
     : window(800, 600, CHAR2LPCWSTR("Start Window"))
@@ -34,12 +33,13 @@ App::App()
             // return std::make_unique<Box>(gfx, rng, adist, ddist, odist, rdist, bdist, mat);
             case 2:
                 return std::make_unique<Pyramid>(gfx, rng, adist, ddist, odist, rdist);
+            default:;
             }
             return {};
         }
 
     private:
-        Graphics &                            gfx;
+        Graphics                             &gfx;
         std::mt19937                          rng{std::random_device{}()};
         std::uniform_real_distribution<float> adist{0.0f, PI * 2.0f};
         std::uniform_real_distribution<float> ddist{0.0f, PI * 0.5f};

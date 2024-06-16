@@ -3,12 +3,11 @@
 
 #include <memory>
 
-#include "NexusIO.h"
-#include "NexusMacro.h"
-
-#include "../Exception/WindowException.h"
-#include "../Graphics.h"
-#include "../Utils/Timer.h"
+#include "../../core/utils/Timer.h"
+#include "../../include/NexusIO.h"
+#include "Graphics.h"
+#include "exception/WindowException.h"
+#include "windows_platform_macro.h"
 
 //helper macro
 #define NEXUS_EXCEPT(hr) WindowException(__LINE__, __FILE__, hr)
@@ -51,11 +50,11 @@ public:
     Window(const Window &) = delete;
 
     auto operator=(const Window &) -> Window & = delete;
-    ~ Window();
+    ~    Window();
 
     [[nodiscard]] static auto ProcessMessage() noexcept -> std::optional<int>;
 
-    [[nodiscard]]   auto GetGraphics() -> Graphics &;
+    [[nodiscard]] auto GetGraphics() -> Graphics &;
 
 private:
     [[nodiscard]] auto HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) -> LRESULT;
@@ -73,7 +72,7 @@ private:
 
     HWND h_wnd;
 
-      std::unique_ptr<Graphics> graphics_ptr ;
+    std::unique_ptr<Graphics> graphics_ptr;
 };
 
 #endif //NEXUS_WINDOW_H

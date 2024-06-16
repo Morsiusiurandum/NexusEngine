@@ -1,7 +1,7 @@
 #ifndef DRAWABLE_BASE_H
 #define DRAWABLE_BASE_H
 
-#include "../Graphics.h"
+#include "../platform/windows/Graphics.h"
 #include <DirectXMath.h>
 #include <vector>
 

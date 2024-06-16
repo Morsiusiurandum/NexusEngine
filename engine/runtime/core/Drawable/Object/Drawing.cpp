@@ -1,9 +1,9 @@
 #include "Drawing.h"
-#include "../../Surface.h"
-#include "../Mesh/Plane.h"
+#include "../../../platform/windows/Bindable/Sampler.h"
+#include "../../../platform/windows/Bindable/Texture.h"
+#include "../../../platform/windows/Surface.h"
+#include "../../mesh/Plane.h"
 #include "BindableBase.h"
-#include "../../Bindable/Sampler.h"
-#include "../../Bindable/Texture.h"
 
 Drawing::Drawing(
     Graphics                              &graphics,
@@ -39,7 +39,7 @@ Drawing::Drawing(
         AddStaticBind(std::make_unique<Sampler>(graphics));
 
         auto vertex_Shader = std::make_unique<VertexShader>(graphics, L"shader\\TextureVS.cso");
-        auto pvsbc = vertex_Shader->GetBytecode();
+        auto pvsbc         = vertex_Shader->GetBytecode();
         AddStaticBind(std::move(vertex_Shader));
 
         AddStaticBind(std::make_unique<PixelShader>(graphics, L"shader\\TexturePS.cso"));
@@ -65,6 +65,6 @@ Drawing::Drawing(
 
 auto Drawing::GetTransformXM() const noexcept -> DirectX::XMMATRIX
 {
-   
+
     return MeshRenderer::GetTransformXM();
 }

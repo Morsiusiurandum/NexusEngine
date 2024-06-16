@@ -1,5 +1,5 @@
 #include "Box.h"
-#include "../Mesh/Cube.h"
+#include "../../mesh/Cube.h"
 #include "BindableBase.h"
 #include <DirectXMath.h>
 

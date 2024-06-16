@@ -1,5 +1,5 @@
-#ifndef MACRO_H
-#define MACRO_H
+#ifndef WINDOWS_PLANTFORM_MACRO_H
+#define WINDOWS_PLANTFORM_MACRO_H
 
 #include <windows.h>
 

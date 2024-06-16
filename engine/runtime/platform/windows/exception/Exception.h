@@ -1,7 +1,7 @@
 #ifndef NEXUS_EXCEPTION_H
 #define NEXUS_EXCEPTION_H
 
-#include "NexusMacro.h"
+#include "../windows_platform_macro.h"
 #include <atlstr.h>
 #include <exception>
 #include <sstream>
