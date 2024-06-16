@@ -1,7 +1,7 @@
 #ifndef IO_H
 #define IO_H
 
-#include "../src/IO/Keyboard.h"
-#include "../src/IO/Mouse.h"
+#include "../core/io/keyboard.h"
+#include "../core/io/mouse.h"
 
 #endif //IO_H

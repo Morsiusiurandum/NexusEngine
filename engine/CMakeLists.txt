@@ -15,7 +15,7 @@ include_directories(runtime/include)
 set(WIN32_RESOURCES editor/resources/WindowsProject.rc)
 
 file(GLOB_RECURSE resources editor/resources/**)
-file(GLOB_RECURSE src runtime/src/** runtime/include/**)
+file(GLOB_RECURSE src runtime/**)
 
 add_executable(${WINDOWS_APP_NAME} WIN32 ${resources} ${src})
 

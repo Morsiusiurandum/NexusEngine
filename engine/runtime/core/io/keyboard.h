@@ -5,7 +5,7 @@
 #include <optional>
 #include <queue>
 
-class Keyboard
+class keyboard
 {
 	friend class Window;
 
@@ -44,11 +44,11 @@ class Keyboard
 	};
 
  public:
-	Keyboard() = default;
+     keyboard() = default;
 
-	Keyboard(const Keyboard&) = delete;
+     keyboard(const keyboard &) = delete;
 
-	Keyboard& operator=(const Keyboard&) = delete;
+     keyboard & operator=(const keyboard &) = delete;
 
 	// key event stuff
 	[[nodiscard]] auto KeyIsPressed(unsigned char key_code) const noexcept -> bool;

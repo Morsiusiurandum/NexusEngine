@@ -65,7 +65,7 @@ private:
     static auto CALLBACK HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) -> LRESULT;
 
 public:
-    Keyboard keyboard;
+    keyboard keyboard;
     Mouse    mouse;
 
 private:

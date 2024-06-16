@@ -1,3 +1,7 @@
+# The vcpkg toolchain is in %VCPKG_ROOT%/scripts/buildsystems/vcpkg.cmake,
+# where %VCPKG_ROOT% is your vcpkg installation path.
+set(CMAKE_TOOLCHAIN_FILE C:/src/vcpkg/scripts/buildsystems/vcpkg.cmake CACHE STRING "Vcpkg toolchain file")
+
 # change this to your preferred name for the entire project
 set(MAIN_PROJECT_NAME "Nexus")
 
@@ -13,10 +17,8 @@ set(SINGLE_INSTANCE_ONLY true)
 
 set(CMAKE_MINIMUM_REQUIRED_VERSION 3.24)
 
-# set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/arc)
-# set(LIBRARY_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/path)
-# set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/lib)
 
 if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)

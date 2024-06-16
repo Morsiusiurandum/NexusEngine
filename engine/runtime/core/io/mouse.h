@@ -37,7 +37,7 @@ class Mouse
 		int y;
 
 	 public:
-		Event(const Type type, const Mouse& parent) noexcept
+		Event(const Type type, const Mouse & parent) noexcept
 			: type(type),
 			  leftIsPressed(parent.leftIsPressed),
 			  rightIsPressed(parent.rightIsPressed),
@@ -77,9 +77,9 @@ class Mouse
 		}
 	};
 
-	Mouse() = default;
+    Mouse() = default;
 
-	Mouse(const Mouse&) = delete;
+    Mouse(const Mouse &) = delete;
 
 	void Flush() noexcept;
 
@@ -87,7 +87,7 @@ class Mouse
 
 	void DisableRaw() noexcept;
 
-	auto operator=(const Mouse&) -> Mouse& = delete;
+	auto operator=(const Mouse &) -> Mouse & = delete;
 
 	auto ReadRawDelta() noexcept -> std::optional<RawDelta>;
 
