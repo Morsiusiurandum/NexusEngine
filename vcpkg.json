@@ -1,0 +1,20 @@
+{
+  "name": "nexus-engine",
+  "license": "MIT",
+  "homepage": "https://github.com/Morsiusiurandum/Nexus",
+  "version": "0.1.0",
+  "dependencies": [
+    {
+      "name": "imgui",
+      "features": [
+        "dx11-binding",
+        "win32-binding"
+      ],
+      "default-features": false
+    },
+    {
+      "name": "directxtex",
+      "default-features": true
+    }
+  ]
+}

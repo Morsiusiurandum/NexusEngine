@@ -10,13 +10,13 @@ find_package(directxtex CONFIG REQUIRED)
 find_package(imgui CONFIG REQUIRED)
 
 # compile libs
-add_subdirectory(utils)
+add_subdirectory(engine/utils)
 
 # compile shaders
 add_subdirectory(shader)
 
 # compile exe
-add_subdirectory(app)
+add_subdirectory(engine)
 
 # sort compile
 add_dependencies(${MAIN_PROJECT_NAME} utils)
