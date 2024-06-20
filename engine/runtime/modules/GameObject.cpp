@@ -1,11 +1,14 @@
-﻿#include "GameObject.h"
+﻿/*
+ * Copyright (c) Morsiusiurandum. 2023-2024. All rights reserved.
+ */
 
-#include "../platform/windows/Window.h"
-#include "../core/Component/MeshFilter.h"
+#include "GameObject.h"
+
 #include "../core/Drawable/Object/Box.h"
+#include "../platform/windows/Window.h"
+#include "component/MeshFilter.h"
 
 #include <memory>
-
 
 auto GameObject::CreatePrimitive(Graphics &graphics, const PrimitiveType type) noexcept -> std::shared_ptr<GameObject>
 {
@@ -36,12 +39,11 @@ void GameObject::AddComponent(std::unique_ptr<Component> component)
 {
     if (const auto find = _component_map.find(component->GetType()); find != _component_map.end())
     {
-        throw "The component already exists！";
+        throw R"(The component already exists！)";
     }
 
     component->game_object               = shared_from_this();
     _component_map[component->GetType()] = std::move(component);
-
 }
 
 template std::shared_ptr<MeshFilter> GameObject::GetComponent(Component::Type type);

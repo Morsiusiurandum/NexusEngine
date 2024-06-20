@@ -1,16 +1,21 @@
+/*
+ * Copyright (c) Morsiusiurandum. 2023-2024. All rights reserved.
+ */
+
 #ifndef MESH_RENDERER_H
 #define MESH_RENDERER_H
 
-#include "../Drawable/Drawable.h"
 #include <random>
-#include "../Drawable/Object/Transform.h"
+
+#include "../../core/Drawable/Drawable.h"
+#include "../../core/Drawable/Object/Transform.h"
 
 template<class T>
 class MeshRenderer : public DrawableBase
 {
 public:
-    MeshRenderer(Graphics &                             gfx,
-                 std::mt19937 &                         rng,
+    MeshRenderer(Graphics                              &gfx,
+                 std::mt19937                          &rng,
                  std::uniform_real_distribution<float> &adist,
                  std::uniform_real_distribution<float> &ddist,
                  std::uniform_real_distribution<float> &odist,
@@ -32,9 +37,7 @@ public:
     explicit MeshRenderer(const Graphics &)
         : r(0), theta(0), phi(0), chi(0), droll(0), dpitch(0), dyaw(0), dtheta(0), dphi(0), dchi(0), transform()
     {
-
     }
-
 
     void Update(const float dt) noexcept override
     {
@@ -93,9 +96,7 @@ private:
         return staticBinds;
     }
 
-
     static std::vector<std::unique_ptr<Bindable>> staticBinds;
-
 
     // positional
     float r;

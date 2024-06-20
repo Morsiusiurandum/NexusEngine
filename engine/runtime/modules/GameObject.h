@@ -1,6 +1,5 @@
 ﻿/*
  * Copyright (c) Morsiusiurandum. 2023-2024. All rights reserved.
- *
  */
 
 #ifndef GAME_OBJECT_H
@@ -8,7 +7,7 @@
 
 #include "../platform/windows/directx11/Graphics.h"
 
-#include "../core/Component/Component.h"
+#include "component/Component.h"
 #include "../core/Drawable/DrawableBase.h"
 #include "../core/Drawable/Object/Transform.h"
 #include <map>

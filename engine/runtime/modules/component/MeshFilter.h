@@ -1,7 +1,11 @@
-﻿#ifndef COMPONENT_MESH_FILTER_H
+﻿/*
+ * Copyright (c) Morsiusiurandum. 2023-2024. All rights reserved.
+ */
+
+#ifndef COMPONENT_MESH_FILTER_H
 #define COMPONENT_MESH_FILTER_H
 
-#include "../mesh/Mesh.h"
+#include "../../core/mesh/Mesh.h"
 #include "Component.h"
 
 class MeshFilter final : public Component
@@ -20,12 +24,10 @@ public:
         }
     }
 
-    Type GetType() override
-    {
-        return MESH;
-    }
-
-private:
-    //  Mesh _mesh;
+public:
+    /**
+     * @brief The mesh object owned by the current component
+     */
+    Mesh mesh;
 };
 #endif
