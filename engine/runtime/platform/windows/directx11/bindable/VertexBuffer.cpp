@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) Morsiusiurandum. 2023-2024. All rights reserved.
+ *
+ */
+
 #include "VertexBuffer.h"
  
 auto VertexBuffer::Bind(Graphics &graphics) noexcept -> void

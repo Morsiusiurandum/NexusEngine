@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) Morsiusiurandum. 2023-2024. All rights reserved.
+ *
+ */
+
 #include "IndexBuffer.h"
 
 IndexBuffer::IndexBuffer(Graphics &graphics, const std::vector<unsigned short> &index)

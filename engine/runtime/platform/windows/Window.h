@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) Morsiusiurandum. 2023-2024. All rights reserved.
+ *
+ */
+
 #ifndef NEXUS_WINDOW_H
 #define NEXUS_WINDOW_H
 
@@ -5,7 +10,7 @@
 
 #include "../../core/utils/Timer.h"
 #include "../../include/NexusIO.h"
-#include "Graphics.h"
+#include "directx11/Graphics.h"
 #include "exception/WindowException.h"
 #include "windows_platform_macro.h"
 
@@ -47,9 +52,11 @@ public:
      * @param name window name
      */
     Window(int width, int height, const WCHAR *name);
+    
     Window(const Window &) = delete;
 
     auto operator=(const Window &) -> Window & = delete;
+    
     ~    Window();
 
     [[nodiscard]] static auto ProcessMessage() noexcept -> std::optional<int>;

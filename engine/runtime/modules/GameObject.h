@@ -1,7 +1,12 @@
-﻿#ifndef GAME_OBJECT_H
+﻿/*
+ * Copyright (c) Morsiusiurandum. 2023-2024. All rights reserved.
+ *
+ */
+
+#ifndef GAME_OBJECT_H
 #define GAME_OBJECT_H
 
-#include "../platform/windows/Graphics.h"
+#include "../platform/windows/directx11/Graphics.h"
 
 #include "../core/Component/Component.h"
 #include "../core/Drawable/DrawableBase.h"

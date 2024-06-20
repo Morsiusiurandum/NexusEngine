@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) Morsiusiurandum. 2023-2024. All rights reserved.
+ *
+ */
+
 #ifndef PIXEL_SHADER_H
 #define PIXEL_SHADER_H
 

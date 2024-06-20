@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) Morsiusiurandum. 2023-2024. All rights reserved.
+ *
+ */
+
 #ifndef VERTEX_SHADER_H
 #define VERTEX_SHADER_H
 #include "Bindable.h"

@@ -1,8 +1,13 @@
+/*
+ * Copyright (c) Morsiusiurandum. 2023-2024. All rights reserved.
+ *
+ */
+
 #ifndef GRAPHICS_H
 #define GRAPHICS_H
 
-#include "Exception/GraphicsException.h"
-#include "windows_platform_macro.h"
+#include "../exception/GraphicsException.h"
+#include "../windows_platform_macro.h"
 #include <DirectXMath.h>
 #include <d3d11.h>
 #include <wrl.h>
@@ -21,13 +26,13 @@ public:
      * @param window current window pointer
      */
     explicit Graphics(HWND window, int width, int height);
-    ~Graphics();
+    ~        Graphics();
 
     explicit Graphics(const Graphics &)                = delete;
-    auto     operator=(const Graphics &) -> Graphics & = delete;
+    auto     operator=(const Graphics &) -> Graphics     & = delete;
 
     /**
-     * \brief End current frame
+     * @brief End current frame
      */
     void EndFrame();
 

@@ -1,4 +1,9 @@
-#include "Graphics.h"
+/*
+ * Copyright (c) Morsiusiurandum. 2023-2024. All rights reserved.
+ *
+ */
+
+#include "directx11/Graphics.h"
 #include "imgui_impl_dx11.h"
 #include "imgui_impl_win32.h"
 #include <DirectXMath.h>

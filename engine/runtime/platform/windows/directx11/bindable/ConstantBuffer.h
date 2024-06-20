@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) Morsiusiurandum. 2023-2024. All rights reserved.
+ *
+ */
+
 #ifndef CONSTANT_BUFFER_H
 #define CONSTANT_BUFFER_H
 

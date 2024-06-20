@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) Morsiusiurandum. 2023-2024. All rights reserved.
+ *
+ */
+
 #ifndef TRANSFORM_CBUF_H
 #define TRANSFORM_CBUF_H
 

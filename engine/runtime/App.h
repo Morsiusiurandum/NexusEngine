@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) Morsiusiurandum. 2023-2024. All rights reserved.
+ *
+ */
+
 #ifndef APP_H
 #define APP_H
 
@@ -12,6 +17,7 @@ class App
 {
 public:
     App();
+
     ~App();
 
     auto Awake() -> int;

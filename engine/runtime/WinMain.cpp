@@ -1,5 +1,12 @@
+/*
+ * Copyright (c) Morsiusiurandum. 2023-2024. All rights reserved.
+ *
+ */
+
 #include "App.h"
 #include "platform/windows/Window.h"
+
+#ifdef _WIN32
 
 auto CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd) -> int
 {
@@ -23,3 +30,11 @@ auto CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 
     return -1;
 }
+#else
+
+auto main(int argc, char *argv[]) -> int
+{
+    printf_s("Unsupported platforms!");
+}
+
+#endif

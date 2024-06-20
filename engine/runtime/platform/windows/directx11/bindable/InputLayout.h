@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) Morsiusiurandum. 2023-2024. All rights reserved.
+ *
+ */
+
 #ifndef  INPUT_LAYOUT_H 
 #define INPUT_LAYOUT_H
 

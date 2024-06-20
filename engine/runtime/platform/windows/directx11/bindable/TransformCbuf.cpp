@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) Morsiusiurandum. 2023-2024. All rights reserved.
+ *
+ */
+
 #include "TransformCbuf.h"
 
 TransformCbuf::TransformCbuf(Graphics &gfx, const DrawableBase &parent)

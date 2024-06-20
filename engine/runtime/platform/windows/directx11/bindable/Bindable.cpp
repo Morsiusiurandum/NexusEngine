@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) Morsiusiurandum. 2023-2024. All rights reserved.
+ *
+ */
+
 #include "Bindable.h"
 
 auto Bindable::GetDevice(Graphics &graphics) noexcept -> ID3D11Device *

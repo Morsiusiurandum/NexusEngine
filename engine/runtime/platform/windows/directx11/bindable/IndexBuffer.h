@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) Morsiusiurandum. 2023-2024. All rights reserved.
+ *
+ */
+
 #ifndef INDEX_BUFFER_H
 #define INDEX_BUFFER_H
  
