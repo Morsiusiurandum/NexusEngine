@@ -1,16 +1,20 @@
+/*
+ * Copyright (c) Morsiusiurandum. 2023-2024. All rights reserved.
+ */
+
 #ifndef INDEXED_TRIANGLE_H
 #define INDEXED_TRIANGLE_H
 
 #include <DirectXMath.h>
 #include <vector>
+#include "../../platform/windows/directx11/vertex.h"
 
-template<class T>
 class IndexedTriangle
 {
 public:
     IndexedTriangle() = default;
 
-    IndexedTriangle(std::vector<T> vertex_in, std::vector<uint16_t> index_in)
+    IndexedTriangle(std::vector<windows_dirtex11::vertex> vertex_in, std::vector<uint16_t> index_in)
         : vertex(std::move(vertex_in)), index(std::move(index_in))
     {
         assert(vertex.size() > 2);
@@ -29,7 +33,7 @@ public:
     }
 
     // asserts face-independent vertices w/ normals cleared to zero
-    void SetNormalsIndependentFlat() noexcept(!IS_DEBUG)
+    void SetNormalsIndependentFlat() noexcept(!_DEBUG)
     {
         using namespace DirectX;
 
@@ -53,8 +57,8 @@ public:
     }
 
 public:
-    std::vector<T>        vertex;
-    std::vector<uint16_t> index;
+    std::vector<windows_dirtex11::vertex> vertex;
+    std::vector<uint16_t>                 index;
 };
 
 #endif //INDEXED_TRIANGLE_H

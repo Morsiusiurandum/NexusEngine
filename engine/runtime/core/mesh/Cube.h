@@ -1,20 +1,26 @@
+/*
+ * Copyright (c) Morsiusiurandum. 2023-2024. All rights reserved.
+ */
+
 #ifndef CUBE_H
 #define CUBE_H
 
 #include "IndexedTriangle.h"
+
 #include <DirectXMath.h>
+
+using namespace windows_dirtex11;
 
 class Cube
 {
 public:
-    template<class V>
-    static auto Make() -> IndexedTriangle<V>
+    static auto Make() -> IndexedTriangle<vertex>
     {
         namespace dx = DirectX;
 
         constexpr float side = 1.0f / 2.0f;
 
-        std::vector<V> vertices(8);
+        std::vector<vertex> vertices(8);
         vertices[0].pos = {-side, -side, -side};
         vertices[1].pos = {+side, -side, -side};
         vertices[2].pos = {-side, +side, -side};
@@ -35,14 +41,13 @@ public:
         };
     }
 
-    template<class V>
-    static auto MakeSkinned() -> IndexedTriangle<V>
+    static auto MakeSkinned() -> IndexedTriangle<vertex>
     {
         namespace dx = DirectX;
 
         constexpr float side = 1.0f / 2.0f;
 
-        std::vector<V> vertices(14);
+        std::vector<vertex> vertices(14);
 
         vertices[0].pos  = {-side, -side, -side};
         vertices[0].tex  = {2.0f / 3.0f, 0.0f / 4.0f};
@@ -84,12 +89,11 @@ public:
         };
     }
 
-    template<class V>
-    static auto MakeIndependent() -> IndexedTriangle<V>
+    static auto MakeIndependent() -> IndexedTriangle<vertex>
     {
         constexpr float side = 1.0f / 2.0f;
 
-        std::vector<V> vertices(24);
+        std::vector<vertex> vertices(24);
         vertices[0].pos = {-side, -side, -side}; // 0 near
         vertices[1].pos = {+side, -side, -side}; // 1
         vertices[2].pos = {-side, +side, -side}; // 2

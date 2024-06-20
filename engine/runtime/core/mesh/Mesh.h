@@ -1,9 +1,14 @@
-﻿#ifndef MESH_H
+﻿/*
+ * Copyright (c) Morsiusiurandum. 2023-2024. All rights reserved.
+ */
+
+#ifndef MESH_H
 #define MESH_H
 
 #include "../platform/windows/windows_platform_macro.h"
 
-#include "Vertex.h"
+#include "../../platform/windows/directx11/vertex.h"
+
 #include <vector>
 
 class Mesh
@@ -14,9 +19,9 @@ public:
         CUBE_MESH
     };
 
-    Mesh(std::vector<Vertex> vertex_in, std::vector<uint16_t> index_in);
+    Mesh(std::vector<windows_dirtex11::vertex> vertex_in, std::vector<uint16_t> index_in);
 
-    void UpdateTransform(DirectX::FXMMATRIX   &transform);
+    void UpdateTransform(DirectX::FXMMATRIX &transform);
 
     /**
      * \brief Asserts face-independent vertices normals and cleared to zero
@@ -24,8 +29,8 @@ public:
     void SetNormalsIndependentFlat() noexcept(!IS_DEBUG);
 
 private:
-    std::vector<Vertex>   vertex;
-    std::vector<uint16_t> index;
+    std::vector<windows_dirtex11::vertex> vertex;
+    std::vector<uint16_t>                 index;
 
 };
 #endif

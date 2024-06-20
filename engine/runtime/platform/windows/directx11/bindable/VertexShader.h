@@ -1,6 +1,5 @@
 /*
  * Copyright (c) Morsiusiurandum. 2023-2024. All rights reserved.
- *
  */
 
 #ifndef VERTEX_SHADER_H
@@ -11,7 +10,7 @@ class VertexShader : public Bindable
 {
 public:
     VertexShader(Graphics &gfx, const std::wstring &path);
-    
+
     void Bind(Graphics &gfx) noexcept override;
     auto GetBytecode() const noexcept -> ID3DBlob *;
 
