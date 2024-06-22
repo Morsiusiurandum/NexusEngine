@@ -1,6 +1,3 @@
-# The vcpkg toolchain is in %VCPKG_ROOT%/scripts/buildsystems/vcpkg.cmake,
-# where %VCPKG_ROOT% is your vcpkg installation path.
-
 # change this to your preferred name for the entire project
 set(MAIN_PROJECT_NAME "Nexus")
 
