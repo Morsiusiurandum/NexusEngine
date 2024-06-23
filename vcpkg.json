@@ -10,10 +10,12 @@
         "dx11-binding",
         "win32-binding"
       ],
+      "platform": "windows",
       "default-features": false
     },
     {
       "name": "directxtex",
+      "platform": "windows",
       "default-features": true
     }
   ]
