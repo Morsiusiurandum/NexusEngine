@@ -1,6 +1,10 @@
-﻿#include "Mesh.h"
+﻿/*
+ * Copyright (c) Morsiusiurandum. 2023-2024. All rights reserved.
+ */
 
-Mesh::Mesh(std::vector<Vertex> vertex_in, std::vector<uint16_t> index_in): vertex(std::move(vertex_in)), index(std::move(index_in))
+#include "Mesh.h"
+
+Mesh::Mesh(std::vector<windows_dirtex11::vertex> vertex_in, std::vector<uint16_t> index_in): vertex(std::move(vertex_in)), index(std::move(index_in))
 {
     assert(vertex.size() > 2);
     assert(index.size() % 3 == 0);
@@ -8,17 +12,16 @@ Mesh::Mesh(std::vector<Vertex> vertex_in, std::vector<uint16_t> index_in): verte
 
 void Mesh::UpdateTransform(DirectX::FXMMATRIX &transform)
 {
-    for (auto &[pos, n]: vertex)
+    for (auto &[pos, n, tex]: vertex)
     {
-        const auto old_pos = XMLoadFloat3(&pos);
+        const auto old_pos = DirectX::XMLoadFloat3(&pos);
         const auto new_pos = XMVector3Transform(old_pos, transform);
-        XMStoreFloat3(&pos, new_pos);
+        DirectX::XMStoreFloat3(&pos, new_pos);
     }
 }
 
 void Mesh::SetNormalsIndependentFlat() noexcept(!false)
 {
-    using namespace DirectX;
 
     assert(index.size() % 3 == 0 && !index.empty());
     for (size_t i = 0; i < index.size(); i += 3)
@@ -31,7 +34,10 @@ void Mesh::SetNormalsIndependentFlat() noexcept(!false)
         const auto p1 = XMLoadFloat3(&v1.pos);
         const auto p2 = XMLoadFloat3(&v2.pos);
 
-        const auto n = XMVector3Normalize(XMVector3Cross(p1 - p0, p2 - p0));
+        const auto v3_1 = DirectX::XMVectorSubtract(p1, p0);
+        const auto v3_2 = DirectX::XMVectorSubtract(p2, p0);
+
+        const auto n = DirectX::XMVector3Normalize(DirectX::XMVector3Cross(v3_1, v3_2));
 
         XMStoreFloat3(&v0.n, n);
         XMStoreFloat3(&v1.n, n);

@@ -25,18 +25,17 @@ enum PrimitiveType
 class GameObject : public std::enable_shared_from_this<GameObject>
 {
 public:
-     GameObject() = default;
+    GameObject()  = default;
     ~GameObject() = default;
 
-         GameObject(const GameObject &)                 = delete;
-         GameObject(const GameObject &&)                = delete;
-    auto operator=(const GameObject &) -> GameObject  & = delete;
+    GameObject(const GameObject &)                      = delete;
+    GameObject(const GameObject &&)                     = delete;
+    auto operator=(const GameObject &) -> GameObject &  = delete;
     auto operator=(const GameObject &&) -> GameObject & = delete;
 
     static auto CreatePrimitive(Graphics &graphics, PrimitiveType type) noexcept -> std::shared_ptr<GameObject>;
 
-    template<typename T>
-    std::shared_ptr<T> GetComponent(Component::Type type);
+    auto GetComponent(const std::pmr::string &type) -> std::shared_ptr<Component>;
 
     void AddComponent(std::unique_ptr<Component> component);
 
@@ -45,7 +44,7 @@ public:
     std::unique_ptr<DrawableBase> mesh_renderer;
 
 private:
-    std::map<Component::Type, std::shared_ptr<Component>> _component_map;
+    std::map<std::pmr::string, std::shared_ptr<Component> > _component_map;
 };
 
 #endif

@@ -23,11 +23,14 @@ public:
             break;
         }
     }
+    auto GetType() -> std::pmr::string override
+    {
+        return "component_mesh_filter";
+    }
 
-public:
     /**
      * @brief The mesh object owned by the current component
      */
-    Mesh mesh;
+    Mesh *mesh = nullptr;
 };
 #endif

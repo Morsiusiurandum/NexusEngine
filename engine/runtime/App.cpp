@@ -1,5 +1,9 @@
+/*
+ * Copyright (c) Morsiusiurandum. 2023-2024. All rights reserved.
+ */
+
 #include "App.h"
-#include "core/Component/MeshFilter.h"
+#include "modules/component/MeshFilter.h"
 #include "core/Drawable/DrawableBase.h"
 #include "core/Drawable/Object/Drawing.h"
 #include "core/Drawable/Object/Pyramid.h"
@@ -56,7 +60,7 @@ App::App()
 
     _object = GameObject::CreatePrimitive(window.GetGraphics(), PRIMITIVE_CUBE);
 
-    const auto mesh = _object->GetComponent<MeshFilter>(Component::MESH);
+    const auto mesh = _object->GetComponent("component_mesh_filter");
 
     window.GetGraphics().SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 3.0f / 4.0f, 0.5f, 40.0f));
 }
