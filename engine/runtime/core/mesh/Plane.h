@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) Morsiusiurandum. 2023-2024. All rights reserved.
+ */
+
 #ifndef PLANE_H
 #define PLANE_H
 
@@ -10,18 +14,17 @@
 class Plane
 {
 public:
-    template<class V>
-    static auto MakeTesselated(int divisions_x, int divisions_y) -> IndexedTriangle<V>
+    static auto MakeTesselated(int divisions_x, int divisions_y) -> IndexedTriangle
     {
         namespace dx = DirectX;
         assert(divisions_x >= 1);
         assert(divisions_y >= 1);
 
-        constexpr float width       = 2.0f;
-        constexpr float height      = 2.0f;
-        const int       nVertices_x = divisions_x + 1;
-        const int       nVertices_y = divisions_y + 1;
-        std::vector<V>  vertices(nVertices_x * nVertices_y);
+        constexpr float                       width       = 2.0f;
+        constexpr float                       height      = 2.0f;
+        const int                             nVertices_x = divisions_x + 1;
+        const int                             nVertices_y = divisions_y + 1;
+        std::vector<windows_dirtex11::vertex> vertices(nVertices_x * nVertices_y);
 
         {
             const float side_x         = width / 2.0f;
@@ -68,10 +71,9 @@ public:
         return {std::move(vertices), std::move(indices)};
     }
 
-    template<class V>
-    static auto Make() -> IndexedTriangle<V>
+    static auto Make() -> IndexedTriangle
     {
-        return MakeTesselated<V>(1, 1);
+        return MakeTesselated(1, 1);
     }
 };
 #endif //PLANE_H

@@ -14,7 +14,7 @@ using namespace windows_dirtex11;
 class Cube
 {
 public:
-    static auto Make() -> IndexedTriangle<vertex>
+    static auto Make() -> IndexedTriangle
     {
         namespace dx = DirectX;
 
@@ -41,7 +41,7 @@ public:
         };
     }
 
-    static auto MakeSkinned() -> IndexedTriangle<vertex>
+    static auto MakeSkinned() -> IndexedTriangle
     {
         namespace dx = DirectX;
 
@@ -89,7 +89,7 @@ public:
         };
     }
 
-    static auto MakeIndependent() -> IndexedTriangle<vertex>
+    static auto MakeIndependent() -> IndexedTriangle
     {
         constexpr float side = 1.0f / 2.0f;
 

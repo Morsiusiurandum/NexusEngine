@@ -12,7 +12,7 @@ Mesh::Mesh(std::vector<windows_dirtex11::vertex> vertex_in, std::vector<uint16_t
 
 void Mesh::UpdateTransform(DirectX::FXMMATRIX &transform)
 {
-    for (auto &[pos, n, tex]: vertex)
+    for (auto &[pos, n, tex, color]: vertex)
     {
         const auto old_pos = DirectX::XMLoadFloat3(&pos);
         const auto new_pos = XMVector3Transform(old_pos, transform);

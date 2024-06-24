@@ -27,12 +27,6 @@ public:
 
         if (!IsStaticInitialized())
         {
-            struct Vertex
-            {
-                dx::XMFLOAT3 pos;
-                dx::XMFLOAT3 n;
-            };
-
             auto model = Cube::MakeIndependent();
             model.SetNormalsIndependentFlat();
 

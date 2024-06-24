@@ -12,8 +12,6 @@ class MeshFilter final : public Component
 {
 
 public:
-    //  ~MeshFilter() override = default;
-
     explicit MeshFilter(const Mesh::Type type)
     {
         switch (type)
@@ -23,6 +21,12 @@ public:
             break;
         }
     }
+
+    ~MeshFilter()  
+    {
+        mesh = nullptr;
+    }
+
     auto GetType() -> std::pmr::string override
     {
         return "component_mesh_filter";

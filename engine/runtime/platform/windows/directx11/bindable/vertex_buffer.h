@@ -21,16 +21,16 @@ namespace windows_dirtex11
         vertex_buffer(Graphics &graphics, const std::vector<vertex> &vertex_vector)
             : stride(sizeof(vertex))
         {
-            D3D11_BUFFER_DESC buffer_desc       = {
-                buffer_desc.BindFlags           = D3D11_BIND_VERTEX_BUFFER,
-                buffer_desc.Usage               = D3D11_USAGE_DEFAULT,
-                buffer_desc.CPUAccessFlags      = 0U,
-                buffer_desc.MiscFlags           = 0U,
-                buffer_desc.ByteWidth           = vertex_vector.size() * sizeof(vertex),
-                buffer_desc.StructureByteStride = sizeof(vertex)};
+            D3D11_BUFFER_DESC buffer_desc   = {};
+            buffer_desc.BindFlags           = D3D11_BIND_VERTEX_BUFFER;
+            buffer_desc.Usage               = D3D11_USAGE_DEFAULT;
+            buffer_desc.CPUAccessFlags      = 0U;
+            buffer_desc.MiscFlags           = 0U;
+            buffer_desc.ByteWidth           = vertex_vector.size() * sizeof(vertex);
+            buffer_desc.StructureByteStride = sizeof(vertex);
 
-            D3D11_SUBRESOURCE_DATA subresource_data = {
-                subresource_data.pSysMem            = vertex_vector.data()};
+            D3D11_SUBRESOURCE_DATA subresource_data = {};
+            subresource_data.pSysMem                = vertex_vector.data();
 
             GRAPHICS_EXCEPTION(GetDevice(graphics)->CreateBuffer(&buffer_desc, &subresource_data, &vertex_buffer_comptr_));
         }

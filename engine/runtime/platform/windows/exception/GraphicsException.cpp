@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) Morsiusiurandum. 2023-2024. All rights reserved.
+ */
+
 #include "GraphicsException.h"
 GraphicsException::GraphicsException(int line, const char *file, HRESULT hResult) noexcept
     : Exception(line, file), hr(hResult)
@@ -8,7 +12,7 @@ auto GraphicsException::what() const noexcept -> const char *
 {
     std::ostringstream oss;
     oss << GetType() << std::endl
-        << "[Error Code]" << GetErrorCode() << std::endl
+        << "[Error Code]" << "0x" << std::hex << GetErrorCode() << std::endl
         << "[Description]" << GetErrorString() << std::endl
         << GetOriginString() << std::endl;
     whatBuffer = oss.str();

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) Morsiusiurandum. 2023-2024. All rights reserved.
+ */
+
 #ifndef MESH_CONE_H
 #define MESH_CONE_H
 
@@ -8,8 +12,7 @@
 class Cone
 {
 public:
-    template<class V>
-    static IndexedTriangle<V> GetMesh(int longDiv = 24)
+    static IndexedTriangle GetMesh(int longDiv = 24)
     {
 
         assert(longDiv >= 3);
@@ -18,7 +21,7 @@ public:
         const float longitudeAngle = 2.0f * PI / longDiv;
 
         // base vertices
-        std::vector<V> vertices;
+        std::vector<windows_dirtex11::vertex> vertices;
         for (int iLong = 0; iLong < longDiv; iLong++)
         {
             vertices.emplace_back();

@@ -1,10 +1,9 @@
 /*
  * Copyright (c) Morsiusiurandum. 2023-2024. All rights reserved.
- *
  */
 
 #include "Texture.h"
-#include "../Surface.h"
+#include "../../Surface.h"
 
 Texture::Texture(Graphics &graphics, const Surface &s)
 {

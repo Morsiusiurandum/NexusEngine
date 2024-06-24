@@ -15,7 +15,11 @@ class Component
     friend GameObject;
 
 public:
-    virtual      ~Component() = 0;
+    virtual ~Component()
+    {
+        tag         = nullptr;
+        game_object = nullptr;
+    }
     virtual auto GetType() -> std::pmr::string = 0;
 
 public:

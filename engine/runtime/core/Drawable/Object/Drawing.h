@@ -28,16 +28,8 @@ public:
 
         if (!IsStaticInitialized())
         {
-            struct Vertex
-            {
-                DirectX::XMFLOAT3 pos;
-                struct
-                {
-                    float u;
-                    float v;
-                } tex;
-            };
-            auto model          = Plane::Make<Vertex>();
+
+            auto model          = Plane::Make();
             model.vertex[0].tex = {0.0f, 0.0f};
             model.vertex[1].tex = {1.0f, 0.0f};
             model.vertex[2].tex = {0.0f, 1.0f};

@@ -18,14 +18,16 @@ namespace windows_dirtex11
         /**
          * \brief Position of the point based on model space.
          */
-        DirectX::XMFLOAT3 pos;
+        DirectX::XMFLOAT3 pos{0, 0, 0};
 
         /**
          * \brief Normal direction of the point based on model space.
          */
-        DirectX::XMFLOAT3 n;
-        
-        DirectX::XMFLOAT2 tex;
+        DirectX::XMFLOAT3 n{0, 0, 0};
+
+        DirectX::XMFLOAT2 tex{0, 0};
+
+        DirectX::XMFLOAT3 color{0, 0, 0};
     };
 } // namespace windows_dirtex11
 

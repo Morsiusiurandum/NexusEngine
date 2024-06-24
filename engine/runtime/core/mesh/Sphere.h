@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) Morsiusiurandum. 2023-2024. All rights reserved.
+ */
+
 #ifndef SPHERE_H
 #define SPHERE_H
 
@@ -9,8 +13,7 @@
 class Sphere
 {
 public:
-    template<class V>
-    static IndexedTriangle<V> MakeTesselated(int latDiv, int longDiv)
+    static auto MakeTesselated(int latDiv, int longDiv) -> IndexedTriangle
     {
         namespace dx = DirectX;
         assert(latDiv >= 3);
@@ -93,10 +96,9 @@ public:
         return {std::move(vertices), std::move(indices)};
     }
 
-    template<class V>
-    static IndexedTriangle<V> Make()
+    static IndexedTriangle Make()
     {
-        return MakeTesselated<V>(12, 24);
+        return MakeTesselated(12, 24);
     }
 };
 #endif //SPHERE_H
