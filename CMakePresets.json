@@ -1,0 +1,103 @@
+{
+  "version": 4,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 24,
+    "patch": 0
+  },
+  "include": [],
+  "configurePresets": [
+    {
+      "name": "windows-base",
+      "hidden": true,
+      "description": "Build on the Windows platform using Visual Studio 17 generator",
+      "generator": "Visual Studio 17 2022",
+      "binaryDir": "${sourceDir}/.cache/${presetName}",
+      "installDir": "${sourceDir}/.cache/${presetName}",
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": {
+          "value": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+          "type": "FILEPATH"
+        }
+      }
+    },
+    {
+      "name": "windows-x64-debug",
+      "inherits": "windows-base",
+      "displayName": "Windows x64 Debug",
+      "description": "Build debug version of the 64-bit program on the Windows platform using vs 17 generator",
+      "architecture": {
+        "value": "x64",
+        "strategy": "external"
+      },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": {"type": "STRING", "value": "Debug"},
+        "CMAKE_GENERATOR_PLATFORM": {"type": "STRING", "value": "x64"}
+      }
+    },
+    {
+      "name": "windows-x86-debug",
+      "inherits": "windows-base",
+      "displayName": "Windows x86 Debug",
+      "description": "Build debug version of the 32-bit program on the Windows platform using vs 17 generator",
+      "architecture": {
+        "value": "Win32",
+        "strategy": "external"
+      },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": {"type": "STRING", "value": "Debug"},
+        "CMAKE_GENERATOR_PLATFORM": {"type": "STRING", "value": "Win32"}
+      }
+    },
+    {
+      "name": "windows-x64-release",
+      "hidden": true,
+      "inherits": "windows-base",
+      "displayName": "Windows x64 Release",
+      "description": "Build release version of the 64-bit program on the Windows platform using vs 17 generator",
+      "architecture": {
+        "value": "x64",
+        "strategy": "external"
+      },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": {"type": "STRING", "value": "Release"},
+        "CMAKE_GENERATOR_PLATFORM": {"type": "STRING", "value": "x64"}
+      }
+    },
+    {
+      "name": "windows-x86-release",
+      "hidden": true,
+      "inherits": "windows-base",
+      "displayName": "Windows x86 Release",
+      "description": "Build release version of the 32-bit program on the Windows platform using vs 17 generator",
+      "architecture": {
+        "value": "Win32",
+        "strategy": "external"
+      },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": {"type": "STRING", "value": "Release"},
+        "CMAKE_GENERATOR_PLATFORM": {"type": "STRING", "value": "Win32"}
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "default-build",
+      "configurePreset": "windows-x64-debug"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "default",
+      "configurePreset": "windows-x64-debug",
+      "output": {"outputOnFailure": true},
+      "execution": {"noTestsAction": "error", "stopOnFailure": true}
+    }
+  ],
+  "vendor": {
+    "example.com/ExampleIDE/1.0": {
+      "autoFormat": false
+    }
+  }
+}
+
