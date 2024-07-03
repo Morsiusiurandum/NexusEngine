@@ -1,5 +1,6 @@
 /*
  * Copyright (c) Morsiusiurandum. 2023-2024. All rights reserved.
+ *
  */
 
 #ifndef APP_H
@@ -30,7 +31,7 @@ public:
     std::list<Camera>                           cameras;
     Camera                                      main_camera{};
     Window                                      window;
-    Timer                                       timer{};
+    static Timer                                timer ;
     std::vector<std::unique_ptr<DrawableBase> > drawables{};
     float                                       speed_factor = 13.0f;
     static constexpr size_t                     nDrawables   = 80;

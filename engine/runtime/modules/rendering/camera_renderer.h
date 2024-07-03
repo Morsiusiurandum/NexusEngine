@@ -1,5 +1,6 @@
 /*
  * Copyright (c) Morsiusiurandum. 2023-2024. All rights reserved.
+ *
  */
 
 #ifndef CAMERA_RENDERER_H
@@ -16,24 +17,7 @@ namespace modules
     class camera_renderer
     {
     public:
-        camera_renderer();
         void Render(rendering::render_context *context, const Camera &camera);;
-
-    private:
-        void Setup();
-        /*void PrepareBuffer();
-        void PrepareForSceneWindow();
-        void Cull();
-
-        void DrawVisibleGeometry();
-        void DrawUnsupportedShaders();
-        void DrawGizmos();
-        void Submit();*/
-
-    private:
-        Camera                     camera_;
-        rendering::command_buffer  buffer_;
-        rendering::render_context *context_ptr{};
     };
 } // namespace modules
 

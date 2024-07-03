@@ -1,5 +1,6 @@
 /*
  * Copyright (c) Morsiusiurandum. 2023-2024. All rights reserved.
+ *
  */
 
 #include "Graphics.h"
@@ -114,8 +115,8 @@ namespace directx11
     void Graphics::EndFrame()
     {
 
-        ImGui::Render();
-        ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+        // ImGui::Render();
+        // ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 
         if (HRESULT hr; FAILED(hr = swap_chain->Present(1U, 0U)))
         {
@@ -132,9 +133,9 @@ namespace directx11
 
     void Graphics::ClearBuffer(float r, float g, float b) noexcept
     {
-        ImGui_ImplDX11_NewFrame();
-        ImGui_ImplWin32_NewFrame();
-        ImGui::NewFrame();
+        // ImGui_ImplDX11_NewFrame();
+        // ImGui_ImplWin32_NewFrame();
+        // ImGui::NewFrame();
 
         const std::array color = {r, g, b, 1.0f};
 

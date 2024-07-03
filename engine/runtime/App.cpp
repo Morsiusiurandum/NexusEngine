@@ -1,5 +1,6 @@
 /*
  * Copyright (c) Morsiusiurandum. 2023-2024. All rights reserved.
+ *
  */
 
 #include "App.h"
@@ -55,26 +56,25 @@ App::App()
         std::uniform_int_distribution<int> typedist{0, 2};
     };
 
-    render_context_ptr  = std::make_unique<rendering::render_context>();
-    render_pipeline_ptr = std::make_unique<modules::custom_render_pipeline>();
-
     cameras.push_back(main_camera);
 
-    graphics_ptr = std::make_unique<Graphics>(window.h_wnd, window.width, window.height);
+    render_context_ptr  = std::make_unique<rendering::render_context>(window);
+    render_pipeline_ptr = std::make_unique<modules::custom_render_pipeline>();
 
     drawables.reserve(nDrawables);
-    std::generate_n(std::back_inserter(drawables), nDrawables, Factory{*graphics_ptr});
+    //  std::generate_n(std::back_inserter(drawables), nDrawables, Factory{*graphics_ptr});
 
-    _object = GameObject::CreatePrimitive(*graphics_ptr, PRIMITIVE_CUBE);
+    // _object = GameObject::CreatePrimitive(*graphics_ptr, PRIMITIVE_CUBE);
 
-    const auto mesh = _object->GetComponent("component_mesh_filter");
+    //const auto mesh = _object->GetComponent("component_mesh_filter");
 
-    graphics_ptr->SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 3.0f / 4.0f, 0.5f, 40.0f));
+    // graphics_ptr->SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 3.0f / 4.0f, 0.5f, 40.0f));
 
     Instance = this;
 }
 
-App *App::Instance = nullptr;
+App * App::Instance = nullptr;
+Timer App::timer    = Timer();
 
 App::~App() = default;
 
@@ -96,8 +96,8 @@ auto App::Update() -> void
     render_pipeline_ptr->Render(*render_context_ptr, cameras);
 
     const auto dt = timer.Mark() * speed_factor;
-    graphics_ptr->ClearBuffer(0, 0, 0);
-    graphics_ptr->SetCamera(main_camera.GetMatrix());
+    // graphics_ptr->ClearBuffer(0, 0, 0);
+    //graphics_ptr->SetCamera(main_camera.GetMatrix());
 
     // for (const auto &d: drawables)
     // {
@@ -106,18 +106,18 @@ auto App::Update() -> void
     //     d->Draw(window.GetGraphics());
     // }
 
-    _object->transform.position.x = 3 * sin(timer.Peek() * speed_factor);
-    _object->transform.position.y = 3 * cos(timer.Peek() * speed_factor);
-    _object->mesh_renderer->Draw(*graphics_ptr);
+    // _object->transform.position.x = 3 * sin(timer.Peek() * speed_factor);
+    // _object->transform.position.y = 3 * cos(timer.Peek() * speed_factor);
+    // _object->mesh_renderer->Draw(*graphics_ptr);
 
     // imgui window to control simulation speed
-    if (ImGui::Begin("Simulation Speed"))
-    {
-        ImGui::SliderFloat("Speed Factor", &speed_factor, 0.0f, 15.0f);
-        ImGui::Text("%.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-        ImGui::Text("Status: %s", window.keyboard.KeyIsPressed(VK_SPACE) ? "PAUSED" : "RUNNING (hold spacebar to pause)");
-    }
-    ImGui::End();
+    // if (ImGui::Begin("Simulation Speed"))
+    // {
+    //     ImGui::SliderFloat("Speed Factor", &speed_factor, 0.0f, 15.0f);
+    //     ImGui::Text("%.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+    //     ImGui::Text("Status: %s", window.keyboard.KeyIsPressed(VK_SPACE) ? "PAUSED" : "RUNNING (hold spacebar to pause)");
+    // }
+    // ImGui::End();
     //
     //    ImGui_ImplDX11_NewFrame();
     //    ImGui_ImplWin32_NewFrame();
@@ -131,9 +131,9 @@ auto App::Update() -> void
     //    ImGui::Render();
     //    ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 
-    main_camera.SpawnControlWindow();
+    //  main_camera.SpawnControlWindow();
 
-    graphics_ptr->EndFrame();
+    // graphics_ptr->EndFrame();
 
     if (window.keyboard.KeyIsPressed(VK_MENU))
     {

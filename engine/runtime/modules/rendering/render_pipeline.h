@@ -1,5 +1,6 @@
 /*
  * Copyright (c) Morsiusiurandum. 2023-2024. All rights reserved.
+ *
  */
 
 #ifndef RENDER_PIPELINE_H
@@ -7,7 +8,6 @@
 
 #include "render_context.h"
 #include <list>
-#include <memory>
 
 class Camera;
 
@@ -18,7 +18,7 @@ namespace rendering
     public:
         virtual ~render_pipeline() = default;
 
-        virtual void Render(  render_context &context, const std::list<Camera>& cameras) =0;
+        virtual void Render(render_context &context, const std::list<Camera> &cameras) =0;
     };
 
 } // namespace rendering
