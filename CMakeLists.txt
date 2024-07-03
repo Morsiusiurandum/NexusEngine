@@ -1,36 +1,41 @@
 # Edit the BuildOptions.cmake file to change build time options
-include(BuildOptions.cmake)
+INCLUDE(BuildOptions.cmake)
 
-cmake_minimum_required(VERSION ${CMAKE_MINIMUM_REQUIRED_VERSION})
+CMAKE_MINIMUM_REQUIRED(VERSION ${CMAKE_MINIMUM_REQUIRED_VERSION})
 
-project(${MAIN_PROJECT_NAME} LANGUAGES CXX)
+# set the C++ standard to C++ 20
+SET(CMAKE_CXX_STANDARD 20)
+SET(CMAKE_CXX_STANDARD_REQUIRED ON)
+SET(CMAKE_CXX_EXTENSIONS OFF)
+
+PROJECT(${MAIN_PROJECT_NAME} LANGUAGES CXX)
 
 # load package
-find_package(directxtex CONFIG REQUIRED)
-find_package(imgui CONFIG REQUIRED)
+FIND_PACKAGE(directxtex CONFIG REQUIRED)
+FIND_PACKAGE(imgui CONFIG REQUIRED)
 
 # compile libs
-add_subdirectory(engine/utils)
+ADD_SUBDIRECTORY(engine/utils)
 
 # compile shaders
-add_subdirectory(shader)
+ADD_SUBDIRECTORY(shader)
 
 # compile exe
-add_subdirectory(engine)
+ADD_SUBDIRECTORY(engine)
 
 # sort compile
-add_dependencies(${MAIN_PROJECT_NAME} utils)
-add_dependencies(${MAIN_PROJECT_NAME} shaders)
+ADD_DEPENDENCIES(${MAIN_PROJECT_NAME} utils)
+ADD_DEPENDENCIES(${MAIN_PROJECT_NAME} shaders)
 
-target_link_libraries(${MAIN_PROJECT_NAME} PRIVATE imgui::imgui Microsoft::DirectXTex)
-target_link_libraries(${MAIN_PROJECT_NAME} PRIVATE utils)
+TARGET_LINK_LIBRARIES(${MAIN_PROJECT_NAME} PRIVATE imgui::imgui Microsoft::DirectXTex)
+TARGET_LINK_LIBRARIES(${MAIN_PROJECT_NAME} PRIVATE utils)
 
 # define macros
-if (ENABLE_NOTIFICATION_ICON)
-    add_compile_definitions(_ENABLE_NOTIFICATION_ICON)
-endif ()
+IF (ENABLE_NOTIFICATION_ICON)
+    ADD_COMPILE_DEFINITIONS(_ENABLE_NOTIFICATION_ICON)
+ENDIF ()
 
-if (SINGLE_INSTANCE_ONLY)
-    add_compile_definitions(_SINGLE_INSTANCE_ONLY)
-endif ()
+IF (SINGLE_INSTANCE_ONLY)
+    ADD_COMPILE_DEFINITIONS(_SINGLE_INSTANCE_ONLY)
+ENDIF ()
 
