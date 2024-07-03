@@ -2,12 +2,11 @@
  * Copyright (c) Morsiusiurandum. 2023-2024. All rights reserved.
  */
 
-#ifndef CORE_GRAPHICS_H
-#define CORE_GRAPHICS_H
+export module engine.core.rhi:graphics;
 
 namespace core
 {
-    class graphics
+    export class graphics
     {
     public:
         void static clear_depth(float depth) noexcept;
@@ -20,5 +19,3 @@ namespace core
     };
 
 } // namespace core
-
-#endif //CORE_GRAPHICS_H

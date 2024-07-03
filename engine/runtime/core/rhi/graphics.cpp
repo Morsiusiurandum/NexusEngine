@@ -2,9 +2,11 @@
  * Copyright (c) Morsiusiurandum. 2023-2024. All rights reserved.
  */
 
-#include "graphics.h"
+module;
 
 #include "../../App.h"
+
+module engine.core.rhi;
 
 void core::graphics::clear_depth(float depth) noexcept
 {

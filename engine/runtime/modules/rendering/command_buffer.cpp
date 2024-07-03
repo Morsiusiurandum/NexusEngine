@@ -1,8 +1,9 @@
 /*
  * Copyright (c) Morsiusiurandum. 2023-2024. All rights reserved.
  */
-
 #include "command_buffer.h"
+
+import engine.core.rhi;
 
 void rendering::command_buffer::clean()
 {
