@@ -9,13 +9,15 @@
 #include "render_context.h"
 #include "../Camera.h"
 
+#include<memory>
+
 namespace modules
 {
     class camera_renderer
     {
     public:
         camera_renderer();
-        void Render(rendering::render_context context, const Camera &camera);;
+        void Render(rendering::render_context *context, const Camera &camera);;
 
     private:
         void Setup();
@@ -29,10 +31,9 @@ namespace modules
         void Submit();*/
 
     private:
-        Camera                    camera_;
-        rendering::command_buffer buffer_;
-        rendering::render_context context_;
-
+        Camera                     camera_;
+        rendering::command_buffer  buffer_;
+        rendering::render_context *context_ptr{};
     };
 } // namespace modules
 

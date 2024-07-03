@@ -6,15 +6,18 @@
 
 modules::camera_renderer::camera_renderer() = default;
 
-void modules::camera_renderer::Render(const rendering::render_context context, const Camera &camera)
+void modules::camera_renderer::Render(rendering::render_context *context, const Camera &camera)
 {
-    context_ = context;
-    camera_  = camera;
+    context_ptr = context;
+    camera_     = camera;
+
+    Setup();
+
     /*
             PrepareBuffer();
             PrepareForSceneWindow();
             Cull();
-            Setup();
+
             DrawVisibleGeometry();
             DrawUnsupportedShaders();
             DrawGizmos();
@@ -24,7 +27,7 @@ void modules::camera_renderer::Render(const rendering::render_context context, c
 void modules::camera_renderer::Setup()
 {
     //hand the camera's projection matrix to the context
-    context_.SetupCameraProperties(camera_);
+    context_ptr->SetupCameraProperties(camera_);
     /*
      auto flags = camera_.clear_flag;
     buffer_.ClearRenderTarget
@@ -34,6 +37,6 @@ void modules::camera_renderer::Setup()
             flags == CameraClearFlags.Color ? _camera.backgroundColor.linear : Color.clear
             );
      */
-    context_.ExecuteCommandBuffer(buffer_);
+    context_ptr->ExecuteCommandBuffer(buffer_);
     buffer_.clean();
 }

@@ -12,6 +12,9 @@
 #include "modules/GameObject.h"
 #include "modules/ImGuiManager.h"
 
+#include "modules/rendering/custom_render_pipeline.h"
+#include "modules/rendering/render_pipeline.h"
+
 class App
 {
 public:
@@ -24,6 +27,7 @@ public:
     void Update();
 
     ImguiManager                                imGui_manager{};
+    std::list<Camera>                           cameras;
     Camera                                      main_camera{};
     Window                                      window;
     Timer                                       timer{};
@@ -33,6 +37,9 @@ public:
 
     std::unique_ptr<Graphics>   graphics_ptr;
     std::shared_ptr<GameObject> _object;
+
+    std::unique_ptr<rendering::render_pipeline> render_pipeline_ptr;
+    std::unique_ptr<rendering::render_context>  render_context_ptr;
 
     static App *Instance;
 };

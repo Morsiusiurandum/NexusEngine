@@ -9,6 +9,7 @@ void rendering::command_buffer::clean()
 {
     command_.clear();
 }
+
 void rendering::command_buffer::clear_render_target(bool clearDepth, bool clearColor, Color backgroundColor, float depth)
 {
     if (clearDepth)

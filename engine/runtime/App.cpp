@@ -10,7 +10,7 @@
 #include "imgui_impl_win32.h"
 #include "include/NexusMath.h"
 #include "modules/GameObject.h"
-
+#include "modules/rendering/custom_render_pipeline.h"
 #include <memory>
 #include <random>
 
@@ -55,6 +55,11 @@ App::App()
         std::uniform_int_distribution<int> typedist{0, 2};
     };
 
+    render_context_ptr  = std::make_unique<rendering::render_context>();
+    render_pipeline_ptr = std::make_unique<modules::custom_render_pipeline>();
+
+    cameras.push_back(main_camera);
+
     graphics_ptr = std::make_unique<Graphics>(window.h_wnd, window.width, window.height);
 
     drawables.reserve(nDrawables);
@@ -87,6 +92,8 @@ auto App::Awake() -> int
 
 auto App::Update() -> void
 {
+
+    render_pipeline_ptr->Render(*render_context_ptr, cameras);
 
     const auto dt = timer.Mark() * speed_factor;
     graphics_ptr->ClearBuffer(0, 0, 0);

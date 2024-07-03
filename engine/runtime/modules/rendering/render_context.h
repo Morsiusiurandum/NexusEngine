@@ -8,14 +8,23 @@
 #include "command_buffer.h"
 #include "../Camera.h"
 
+import engine.core.rhi;
+
 namespace rendering
 {
 
     class render_context
     {
     public:
-        void SetupCameraProperties(Camera camera);
+        render_context()
+        {
+        } ;
+        void SetupCameraProperties(const Camera &camera);
         void ExecuteCommandBuffer(command_buffer buffer);
+
+    public:
+        DirectX::XMMATRIX project{};
+        core::graphics *  gfx = nullptr;
     };
 
 } // namespace rendering

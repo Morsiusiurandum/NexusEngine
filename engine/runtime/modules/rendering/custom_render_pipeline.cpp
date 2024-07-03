@@ -7,11 +7,11 @@
 namespace modules
 {
 
-    void custom_render_pipeline::Render(rendering::render_context context, const std::list<Camera> &cameras)
+    void custom_render_pipeline::Render(  rendering::render_context &context, const std::list<Camera> &cameras)
     {
         for (const auto camera: cameras)
         {
-            camera_renderer_.Render(context, camera);
+            camera_renderer_.Render(&context, camera);
         }
     }
 }
